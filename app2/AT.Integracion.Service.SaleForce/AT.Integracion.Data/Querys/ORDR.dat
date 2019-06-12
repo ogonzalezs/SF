@@ -1,0 +1,24 @@
+﻿SELECT T0."DocEntry"
+,T0."DocNum" 
+,T0."DocDate" 
+,T0."CardCode"  
+,T0."DocStatus"  
+,T0."NumAtCard"
+,T0."U_RETRBK"
+,CASE WHEN IFNULL(T5."DocEntry",0)>0 THEN '4' ELSE CASE WHEN IFNULL(T3."DocEntry",0)>0 THEN '3' ELSE CASE WHEN IFNULL(T2."DocEntry",0)>0 THEN '2' END END END  AS "Estatus"
+FROM "ORDR" AS T0 
+INNER JOIN "RDR1" AS T1
+ON T0."DocEntry" = T1."DocEntry"
+LEFT OUTER JOIN "OINV" AS T2
+ON T2."DocEntry" = T1."TrgetEntry" AND T1."TargetType" = '13'
+LEFT OUTER JOIN "ODLN" AS T3
+ON T3."DocEntry" = T1."TrgetEntry" AND T1."TargetType" = '15'
+LEFT OUTER JOIN "INV1" AS T4
+ON T2."DocEntry" = T4."DocEntry"
+LEFT OUTER JOIN "ODLN" AS T5
+ON T5."DocEntry" = T4."TrgetEntry" AND T4."TargetType" = '15'
+WHERE DAYS_BETWEEN(TO_DATE(T0."DocDate"), TO_DATE("CURRENT_TIMESTAMP" ())) <= '2' 
+AND IFNULL(T0."U_RETRBK",'')!=''
+AND	T0."CANCELED"='N'
+AND NOT T0."DocEntry" IN (SELECT "Code" FROM "@ORDRES" T6 WHERE T6."U_Status"='4' AND DAYS_BETWEEN(T6."U_FechaCrea", TO_DATE("CURRENT_TIMESTAMP" ())) <= '2')
+ORDER BY T0."DocDate",T0."DocEntry"

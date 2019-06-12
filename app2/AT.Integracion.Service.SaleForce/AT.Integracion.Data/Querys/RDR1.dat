@@ -1,0 +1,9 @@
+﻿SELECT 
+T0."CardCode",
+T0."CardName",
+T0."LicTradNum",
+T0."Phone1",
+T0."E_Mail"
+FROM "OCRD" AS T0
+WHERE T0."LicTradNum" = '{0}'
+AND T0."CardType"='C'

@@ -1,0 +1,4 @@
+﻿Archivo de modelo generado: SALESFORCESEntities.edmx.
+La carga de los metadatos desde la base de datos tardó 00:00:00.8108971.
+La generación del modelo tardó 00:00:01.3588285.
+Se agregó la cadena de conexión al archivo App.Config.

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Config>
+<Server>192.168.1.14:30015</Server>
+<CompanyDB>SAPSBO_HANA_LISA</CompanyDB>
+<DBUserName>SYSTEM</DBUserName>
+<DBPassword>Soportevk1</DBPassword>
+<UseTrusted>false</UseTrusted>
+<LicenseServer>192.168.1.14:40000</LicenseServer>
+<UserName>arovario</UserName>
+<Password>familia</Password>
+</Config>
+

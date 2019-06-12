@@ -1,0 +1,6 @@
+﻿SELECT 
+T0."SlpCode", 
+T0."SlpName", 
+T0."Email"
+FROM "OSLP" AS T0
+WHERE IFNULL(T0."UpdateDate",T0."CreateDate")>='{0}'

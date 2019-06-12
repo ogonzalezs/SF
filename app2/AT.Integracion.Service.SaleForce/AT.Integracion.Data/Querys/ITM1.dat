@@ -1,0 +1,6 @@
+﻿SELECT 
+T0."ItemCode", 
+T0."PriceList", 
+T0."Price"
+FROM "ITM1" AS T0
+WHERE IFNULL(T0."UpdateDate",T0."CreateDate")>='{0}'

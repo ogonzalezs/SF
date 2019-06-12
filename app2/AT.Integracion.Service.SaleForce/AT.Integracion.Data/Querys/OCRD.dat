@@ -1,0 +1,20 @@
+﻿SELECT 
+T0."CardCode", 
+T0."CardName", 
+T0."LicTradNum", 
+T0."Phone1", 
+T0."Phone2", 
+T0."E_Mail", 
+T0."Address", 
+T0."Balance", 
+T0."ChecksBal", 
+T0."CreditLine", 
+T0."ListNum", 
+T0."SlpCode", 
+T0."City", 
+T0."County", 
+T0."Country", 
+T0."CntctPr"
+FROM "OCRD" AS T0
+WHERE T0."CardType"='C'
+AND IFNULL(T0."UpdateDate",T0."CreateDate")>='{0}'
