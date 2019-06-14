@@ -1,4 +1,8 @@
-﻿Archivo de modelo generado: SALESFORCESEntities.edmx.
-La carga de los metadatos desde la base de datos tardó 00:00:00.8108971.
-La generación del modelo tardó 00:00:01.3588285.
+﻿Archivo de modelo generado: SalesForcesModel.edmx.
+La carga de los metadatos desde la base de datos tardó 00:00:00.8298184.
+La generación del modelo tardó 00:00:06.0934870.
 Se agregó la cadena de conexión al archivo App.Config.
+El proceso de escritura del archivo .edmx tardó 00:00:00.0045909.
+Archivo de modelo generado: SalesForcesModel.edmx.
+La carga de los metadatos desde la base de datos tardó 00:00:00.5091744.
+La generación del modelo tardó 00:00:01.7087249.

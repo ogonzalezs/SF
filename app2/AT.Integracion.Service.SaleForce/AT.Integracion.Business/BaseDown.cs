@@ -1,10 +1,9 @@
 ﻿using AT.Model.Data;
+using IX.Model.View;
 using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AT.Integracion.Business
 {
@@ -15,9 +14,8 @@ namespace AT.Integracion.Business
 
         public BaseDown()
         {
-
         }
-
+        
         /// <summary>
         /// </summary>
         /// <param name="Url">             </param>
@@ -54,11 +52,8 @@ namespace AT.Integracion.Business
                             var Index = 0;
                             foreach (var item in ResultTmp)
                             {
-                                Enlace.Add(new Enlace() { Id = Index + 1, Table = "OCRD", Fecha = Data.ObtenerBussinesPartner(), FileName = item.Value, IdEmpresas = item.Key });
-                                Enlace.Add(new Enlace() { Id = Index + 2, Table = "OITM", Fecha = Data.ObtenerItem(), FileName = item.Value, IdEmpresas = item.Key });
-                                Enlace.Add(new Enlace() { Id = Index + 3, Table = "OSLP", Fecha = Data.ObtenerSaleSMan(), FileName = item.Value, IdEmpresas = item.Key });
-                                Enlace.Add(new Enlace() { Id = Index + 4, Table = "ITM1", Fecha = Data.ObtenerPriceList(), FileName = item.Value, IdEmpresas = item.Key });
-                                Index = Index + 4;
+                                Enlace.Add(new Enlace() { Id = Index + 2, Table = "ORDR", Fecha = Data.ObtenerOrden(), FileName = item.Value, IdEmpresas = item.Key });
+                                Index = Index + 1;
                             }
                             Procesado.Add("0", "Se inicia proceso de subida de datos.");
                         }
@@ -78,84 +73,85 @@ namespace AT.Integracion.Business
                 {
                     if (Enlace.Count > 0)
                     {
-                        var OrdersTemp_ = new List<Orders>();
-
-                        using (var Data = new Data.BaseSQLUp())
+                        foreach (var item in Enlace)
                         {
-                            OrdersTemp_ = Data.ObtenerOrdenes();
-                        }
+                            var OrdersTemp_ = new List<Orders>();
 
-                        using (var Data = new Data.BaseDown())
-                        {
-                            foreach (var item in Enlace)
+                            using (var Data = new Data.BaseSQLUp())
                             {
-                                Data.Connect(item.FileName);
+                                OrdersTemp_ = Data.ObtenerOrdenes(item.Fecha,item.IdEmpresas);
+                            }
 
-                                List<Orders> _Orders_ = new List<Orders>();
-                                if (_Orders_.Count > 0)
+                            using (var Data = new Data.BaseDown())
+                            {
+                                
+                                if (OrdersTemp_.Count > 0)
                                 {
-                                    Procesado = Data.CreateOrders(_Orders_, Prefijo, item.IdEmpresas);
+                                    Data.Connect(item.FileName);
 
-                                    if (Procesado.Count > 0)
+                                    var Value = string.Empty;
+
+                                    OrdersTemp_.ForEach(delegate (Orders itemOrder)
                                     {
-                                        if (!Procesado.ContainsKey("0"))
+                                        Value = string.Format("{0}{1}'{2}'",
+                                                          Value, Value.Length > 0 ? "," : "", itemOrder.DocNum);
+                                    });
+
+                                    var _Orders_ = Data.GetOrders(Value);
+                                    var _OrdersProcesss = new List<Orders>();
+                                    foreach (Orders itemOr in OrdersTemp_)
+                                    {
+                                        bool Exists = false;
+
+                                        if (_Orders_ != null)
                                         {
-                                            string msg = string.Empty;
-                                            foreach (KeyValuePair<string, string> itemResult in Procesado)
+                                            foreach (ORDR itemN in _Orders_)
                                             {
-                                                msg = string.Format("{0}, {1}", msg, itemResult.Value);
+                                                if (itemN.NumAtCard.Length > 0)
+                                                {
+                                                    if (itemOr.DocEntry.Equals(itemN.NumAtCard))
+                                                    {
+                                                        Exists = true;
+                                                    }
+                                                }
                                             }
-                                            log.ErrorFormat("Se ha generado un error controlado en el servicio. {0}", msg);
+                                            if (!Exists)
+                                            {
+                                                _OrdersProcesss.Add(itemOr);
+                                            }
                                         }
                                     }
-                                }
-                                else
-                                {
-                                    log.InfoFormat("No existe Ordenes por procesar, del metodo: {0}",
-                                      System.Reflection.MethodBase.GetCurrentMethod().Name);
 
-                                    Procesado.Add("0", "No existe Ordenes por procesar, del metodo");
+                                    if (_OrdersProcesss.Count > 0)
+                                    {
+                                        Procesado = Data.CreateOrders(_OrdersProcesss, Prefijo, item.IdEmpresas);
+
+                                        if (Procesado.Count > 0)
+                                        {
+                                            if (!Procesado.ContainsKey("0"))
+                                            {
+                                                string msg = string.Empty;
+                                                foreach (KeyValuePair<string, string> itemResult in Procesado)
+                                                {
+                                                    msg = string.Format("{0}, {1}", msg, itemResult.Value);
+                                                }
+                                                log.ErrorFormat("Se ha generado un error controlado en el servicio. {0}", msg);
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        log.InfoFormat("No existe Ordenes por procesar, del metodo: {0}",
+                                          System.Reflection.MethodBase.GetCurrentMethod().Name);
+
+                                        Procesado.Add("0", "No existe Ordenes por procesar, del metodo");
+                                    }
                                 }
                             }
                         }
                     }
                 }
-                //if (OrdersTemp_ != null)
-                //{
-                //    if (OrdersTemp_.Count > 0)
-                //    {
-                //        log.DebugFormat("Inicial validación de empresa {0} ", Empresa);
-
-                //        foreach (var item in OrdersTemp_)
-                //        {
-                //            if (item.listado_articulos.Where(w => w.empresa.ToUpper().Trim().Equals(Empresa)).Count() > 0)
-                //            {
-                //                Orders_.Add(new Orders
-                //                {
-                //                    cliente = item.cliente,
-                //                    direccionDespacho = item.direccionDespacho,
-                //                    direccionFactura = item.direccionFactura,
-                //                    general = item.general,
-                //                    listado_articulos = item.listado_articulos.Where(w =>
-                //                    w.empresa.ToUpper().Trim().Equals(Empresa)).ToList()
-                //                });
-                //            }
-                //        }
-
-                //        using (Data.BaseDown data = new Data.BaseDown(FileName))
-                //        {
-                            
-                //        }
-                //    }
-                //}
-                //else
-                //{
-                //    log.InfoFormat("No existe Ordenes por procesar, del metodo: {0}",
-                //            System.Reflection.MethodBase.GetCurrentMethod().Name);
-
-                //    Procesado.Add("0", "No existe Ordenes por procesar, del metodo");
-                //}
-
+                
                 return Procesado;
             }
             catch (Exception)

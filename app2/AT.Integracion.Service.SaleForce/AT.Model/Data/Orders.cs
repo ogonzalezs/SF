@@ -21,6 +21,8 @@ namespace AT.Model.Data
         public string Comments { get; set; }
         public int SlpCode { get; set; }
         public int CntctCode { get; set; }
+        public DateTime? DateDown { get; set; }
+        public long IdCompany { get; set; }
         public List<OrdersDetalle> Detail_ { get; set; }
     }
 
@@ -30,16 +32,16 @@ namespace AT.Model.Data
         public int LineNum { get; set; }
         public string ItemCode { get; set; }
         public string Dscription { get; set; }
-        public double Quantity { get; set; }
+        public decimal Quantity { get; set; }
         public DateTime? ShipDate { get; set; }
-        public double Price { get; set; }
-        public double DiscPrcnt { get; set; }
-        public double LineTotal { get; set; }
+        public decimal Price { get; set; }
+        public decimal DiscPrcnt { get; set; }
+        public decimal LineTotal { get; set; }
         public string WhsCode { get; set; }
         public int SlpCode { get; set; }
-        public double PriceBefDi { get; set; }
-        public double PriceAfVAT { get; set; }
-        public double VatSum { get; set; }
+        public decimal PriceBefDi { get; set; }
+        public decimal PriceAfVAT { get; set; }
+        public decimal VatSum { get; set; }
         public string TaxCode { get; set; }
     }
 }

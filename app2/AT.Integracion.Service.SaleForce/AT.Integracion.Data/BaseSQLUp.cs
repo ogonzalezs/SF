@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+
 namespace AT.Integracion.Data
 {
     public class BaseSQLUp : IDisposable
@@ -25,18 +26,17 @@ namespace AT.Integracion.Data
             log.Info(String.Format("Se inicia la ejecución del metodo: {0}",
                             System.Reflection.MethodBase.GetCurrentMethod().Name));
 
-            Dictionary<long,string> Result = new Dictionary<long, string>();
+            Dictionary<long, string> Result = new Dictionary<long, string>();
 
             try
             {
-
                 using (SALESFORCESEntities context = new SALESFORCESEntities())
                 {
                     try
                     {
-                        var Result_ = context.t_Connection.Select(s => new { s.FileName, s.IdConnection}).ToList();
+                        var Result_ = context.t_Connection.Select(s => new { s.FileName, s.IdConnection }).ToList();
 
-                        if(Result_.Count>0)
+                        if (Result_.Count > 0)
                         {
                             foreach (var item in Result_)
                             {
@@ -75,17 +75,17 @@ namespace AT.Integracion.Data
 
             try
             {
-                Result = DateTime.Now;
+                Result = DateTime.Now.AddYears(-2);
 
                 using (SALESFORCESEntities context = new SALESFORCESEntities())
                 {
                     try
                     {
-                        List<DateTime> Result_ = context.t_Customer.Select(s => s.FechaUp).ToList();
+                        List<DateTime?> Result_ = context.t_Customer.Select(s => s.DateUp).ToList();
 
                         if (Result_.Count > 0)
                         {
-                            Result = Result_.Max();
+                            Result = Result_.Max().Value;
                         }
                     }
                     catch (Exception)
@@ -119,17 +119,17 @@ namespace AT.Integracion.Data
 
             try
             {
-                Result = DateTime.Now;
+                Result = DateTime.Now.AddYears(-2);
 
                 using (SALESFORCESEntities context = new SALESFORCESEntities())
                 {
                     try
                     {
-                        List<DateTime> Result_ = context.t_ItemPrice.Select(s => s.FechaUp).ToList();
+                        List<DateTime?> Result_ = context.t_ItemPrice.Select(s => s.DateUp).ToList();
 
                         if (Result_.Count > 0)
                         {
-                            Result = Result_.Max();
+                            Result = Result_.Max().Value;
                         }
                     }
                     catch (Exception)
@@ -163,17 +163,17 @@ namespace AT.Integracion.Data
 
             try
             {
-                Result = DateTime.Now;
+                Result = DateTime.Now.AddYears(-2);
 
                 using (SALESFORCESEntities context = new SALESFORCESEntities())
                 {
                     try
                     {
-                        List<DateTime> Result_ = context.t_Item.Select(s => s.FechaUp).ToList();
+                        List<DateTime?> Result_ = context.t_Item.Select(s => s.DateUp).ToList();
 
                         if (Result_.Count > 0)
                         {
-                            Result = Result_.Max();
+                            Result = Result_.Max().Value;
                         }
                     }
                     catch (Exception)
@@ -207,17 +207,17 @@ namespace AT.Integracion.Data
 
             try
             {
-                Result = DateTime.Now;
+                Result = DateTime.Now.AddYears(-2);
 
                 using (SALESFORCESEntities context = new SALESFORCESEntities())
                 {
                     try
                     {
-                        List<DateTime> Result_ = context.t_Seller.Select(s => s.FechaUp).ToList();
+                        List<DateTime?> Result_ = context.t_Seller.Select(s => s.DateUp).ToList();
 
                         if (Result_.Count > 0)
                         {
-                            Result = Result_.Max();
+                            Result = Result_.Max().Value;
                         }
                     }
                     catch (Exception)
@@ -239,7 +239,113 @@ namespace AT.Integracion.Data
             }
         }
 
-        public List<Orders> ObtenerOrdenes()
+        public DateTime ObtenerOrden()
+        {
+            System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
+            watch.Start();
+
+            log.Info(String.Format("Se inicia la ejecución del metodo: {0}",
+                            System.Reflection.MethodBase.GetCurrentMethod().Name));
+
+            DateTime Result = new DateTime();
+
+            try
+            {
+                Result = DateTime.Now.AddDays(-2);
+
+                using (SALESFORCESEntities context = new SALESFORCESEntities())
+                {
+                    try
+                    {
+                        List<DateTime?> Result_ = context.t_Orders.Select(s => s.DateUp).ToList();
+
+                        if (Result_.Count > 0)
+                        {
+                            Result = Result_.Max().Value;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
+                return Result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                watch.Stop();
+
+                if (log.IsDebugEnabled) log.DebugFormat("{0} Se ejecuto en {1} ms",
+                    System.Reflection.MethodBase.GetCurrentMethod().Name, watch.ElapsedMilliseconds);
+            }
+        }
+
+        public BusinessPartner ObtenerBussinesPartner(string CardCode, long IdEmpresa)
+        {
+            System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
+            watch.Start();
+
+            log.Info(String.Format("Se inicia la ejecución del metodo: {0}",
+                            System.Reflection.MethodBase.GetCurrentMethod().Name));
+
+            BusinessPartner Result = new BusinessPartner();
+
+            try
+            {
+                using (SALESFORCESEntities context = new SALESFORCESEntities())
+                {
+                    try
+                    {
+                        var Result_ = context.t_Customer.Where(w=>w.CardCode.Equals(CardCode)).FirstOrDefault();
+                        if(Result_ != null)
+                        {
+                            Result = new BusinessPartner()
+                            {
+                                CardCode = Result_.CardCode,
+                                Address = Result_.Address,
+                                Balance = (Result_.Balance.HasValue ? Convert.ToDouble(Result_.Balance.Value) : 0),
+                                CardCodeSAP = Result_.CardCode,
+                                CardName = Result_.CardName,
+                                City = Result_.City,
+                                CntctPrsn = Result_.CntctPrsn,
+                                Country = Result_.Country,
+                                County = Result_.County,
+                                E_Mail = Result_.E_Mail,
+                                Identificacion = Result_.Identificacion,
+                                ListNum = int.Parse(Result_.ListNum),
+                                Phone1 = Result_.Phone1,
+                                Phone2 = Result_.Phone2,
+                                State = Result_.State,
+                                CardType = "",
+                                ValidFor = "",
+                                IdEmpresa = IdEmpresa
+                            };
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                }
+
+                return Result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                watch.Stop();
+
+                if (log.IsDebugEnabled) log.DebugFormat("{0} Se ejecuto en {1} ms",
+                    System.Reflection.MethodBase.GetCurrentMethod().Name, watch.ElapsedMilliseconds);
+            }
+        }
+
+        public List<Orders> ObtenerOrdenes(DateTime DateDown, long IdEmpresa)
         {
             System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
             watch.Start();
@@ -251,15 +357,16 @@ namespace AT.Integracion.Data
 
             try
             {
-                
                 using (SALESFORCESEntities context = new SALESFORCESEntities())
                 {
                     try
                     {
-                        List<Orders> Result_ =  context.t_Orders.Join(context.t_Customer,
+  
+                        Result = context.t_Orders.Join(context.t_Customer,
                             ordenes => ordenes.CardCode,
                             cliente => cliente.CardCode,
-                            (ordenes, cliente) => new Orders {
+                            (ordenes, cliente) => new Orders
+                            {
                                 DocEntry = ordenes.DocEntry,
                                 CardCode = cliente.CardCode,
                                 Comments = ordenes.Comments,
@@ -267,10 +374,27 @@ namespace AT.Integracion.Data
                                 DocDate = ordenes.DocDate,
                                 DocNum = ordenes.DocNum,
                                 DocTotal = ordenes.DocTotal,
-                                VatSum = ordenes.VatSum
-                            }).ToList();
+                                VatSum = ordenes.VatSum,
+                                DateDown = ordenes.DateDown.Value,
+                                 IdCompany = ordenes.IdCompany,
+                                Detail_ = ordenes.t_OrdersDetail.Select(s => new OrdersDetalle()
+                                {
+                                    DocEntry = s.DocEntry,
+                                    Dscription = s.Dscription,
+                                    ItemCode = s.ItemCode,
+                                    DiscPrcnt = s.DiscPrcnt,
+                                    LineTotal = s.LineTotal,
+                                    Price = s.Price,
+                                    Quantity = s.Quantity,
+                                    TaxCode = s.TaxCode,
+                                    VatSum = s.VatSum,
+                                    WhsCode = s.WhsCode,
+                                    ShipDate = s.ShipDate
+                                }).ToList()
+                            }).Where(w=> w.DocDate>= DateDown && 
+                            w.IdCompany.Equals(IdEmpresa) && w.DocNum.Equals(0)).ToList();
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
                     }
                 }
@@ -313,7 +437,7 @@ namespace AT.Integracion.Data
                         {
                             var Data_ = context.t_Customer.Where(w => w.IdCompany.Equals(IdEmpresa) &&
                             w.CardCode.Equals(item.CardCode) &&
-                            w.FechaUp.ToString("yyyyMMdd") != DateTime.Now.ToString("yyyyMMdd")).FirstOrDefault();
+                            w.DateUp.Value != DateTime.Now).FirstOrDefault();
                             if (Data_ != null)
                             {
                                 Data_.Address = item.Address;
@@ -325,8 +449,8 @@ namespace AT.Integracion.Data
                                 Data_.County = item.County;
                                 Data_.CreditLine = Convert.ToDecimal(item.CreditLine);
                                 Data_.E_Mail = item.E_Mail;
-                                Data_.FechaUp = DateTime.Now;
-
+                                Data_.DateUp = DateTime.Now;
+                                Data_.sysUpdateDate = DateTime.Now;
                                 Data_.Identificacion = item.LicTradNum;
                                 Data_.Phone1 = item.Phone1;
                                 Data_.Phone2 = item.Phone2;
@@ -334,33 +458,37 @@ namespace AT.Integracion.Data
                                 context.t_Customer.Attach(Data_);
                                 context.Entry(Data_).State = EntityState.Modified;
                             }
-                            else { 
-                            context.t_Customer.Add(new  t_Customer()
+                            else
                             {
-                                Address = item.Address,
-                                Balance = Convert.ToDecimal(item.Balance),
-                                CardName = item.CardName,
-                                City = item.City,
-                                CntctPrsn = item.CntctPrsn,
-                                Country = item.Country,
-                                County = item.County,
-                                CreditLine = Convert.ToDecimal(item.CreditLine),
-                                E_Mail = item.E_Mail,
-                                FechaUp = DateTime.Now,
-                                IdCompany = IdEmpresa,
-                                Identificacion = item.LicTradNum,
-                                Phone1 = item.Phone1,
-                                Phone2 = item.Phone2,
-                                ZipCode = item.ZipCode
-                            });
+                                context.t_Customer.Add(new t_Customer()
+                                {
+                                    Address = item.Address,
+                                    Balance = Convert.ToDecimal(item.Balance),
+                                    CardName = item.CardName,
+                                    City = item.City,
+                                    CntctPrsn = item.CntctPrsn,
+                                    Country = item.Country,
+                                    County = item.County,
+                                    CreditLine = Convert.ToDecimal(item.CreditLine),
+                                    E_Mail = item.E_Mail,
+                                    DateUp = DateTime.Now,
+                                    IdCompany = IdEmpresa,
+                                    Identificacion = item.LicTradNum,
+                                    Phone1 = item.Phone1,
+                                    Phone2 = item.Phone2,
+                                    ZipCode = item.ZipCode,
+                                    sysCreateDate = DateTime.Now,
+                                    CardCode = item.CardCode,
+                                    CardCodeSAP = item.CardCode
+                                });
                             }
                         }
-
                         int Process = context.SaveChanges();
 
                         if (Process != 0)
                         {
-                            Result.Add("0", "Procesado");
+                            if (!Result.ContainsKey("0"))
+                                Result.Add("0", "Procesado");
                         }
                     }
                     catch (Exception ex)
@@ -401,41 +529,51 @@ namespace AT.Integracion.Data
                     {
                         foreach (ITM1 item in Data)
                         {
-                            var Data_ = context.t_ItemPrice.Where(w => w.IdCompany.Equals(IdEmpresa) &&
+                            try
+                            {
+                                var Data_ = context.t_ItemPrice.Where(w => w.IdCompany.Equals(IdEmpresa) &&
                             w.PriceList.Equals(item.PriceList) &&
                             w.ItemCode.Equals(item.ItemCode) &&
-                            w.FechaUp.ToString("yyyyMMdd") != DateTime.Now.ToString("yyyyMMdd")).FirstOrDefault();
-                            if (Data_ != null)
-                            {
-                                Data_.Price = Convert.ToDecimal(item.Price);
-                                Data_.FechaUp = DateTime.Now;
-
-                                context.t_ItemPrice.Attach(Data_);
-                                context.Entry(Data_).State = EntityState.Modified;
-                            }
-                            else
-                            { 
-                                context.t_ItemPrice.Add(new t_ItemPrice()
+                            w.DateUp.Value != DateTime.Now).FirstOrDefault();
+                                if (Data_ != null)
                                 {
-                                    ItemCode = item.ItemCode,
-                                    Price = Convert.ToDecimal(item.Price),
-                                    PriceList = item.PriceList,
-                                    FechaUp = DateTime.Now,
-                                    IdCompany = IdEmpresa
-                                });
+                                    Data_.Price = Convert.ToDecimal(item.Price);
+                                    Data_.DateUp = DateTime.Now;
+
+                                    context.t_ItemPrice.Attach(Data_);
+                                    context.Entry(Data_).State = EntityState.Modified;
+                                }
+                                else
+                                {
+                                    context.t_ItemPrice.Add(new t_ItemPrice()
+                                    {
+                                        ItemCode = item.ItemCode,
+                                        Price = Convert.ToDecimal(item.Price),
+                                        PriceList = item.PriceList,
+                                        DateUp = DateTime.Now,
+                                        IdCompany = IdEmpresa
+                                    });
+                                }
+
+                                int Process = context.SaveChanges();
+
+                                if (Process != 0)
+                                {
+                                    if (!Result.ContainsKey("0"))
+                                        Result.Add("0", "Procesado");
+                                }
                             }
-                        }
-
-                        int Process = context.SaveChanges();
-
-                        if (Process != 0)
-                        {
-                            Result.Add("0", "Procesado");
+                            catch (Exception ex)
+                            {
+                                if (!Result.ContainsKey("-1" + item))
+                                    Result.Add("-1" + item, string.Format("ERROR: {0}", ex.Message));
+                            }
                         }
                     }
                     catch (Exception ex)
                     {
-                        Result.Add("-1", string.Format("ERROR: {0}", ex.Message));
+                        if (!Result.ContainsKey("-1"))
+                            Result.Add("-1", string.Format("ERROR: {0}", ex.Message));
                     }
                 }
                 return Result;
@@ -471,9 +609,9 @@ namespace AT.Integracion.Data
                     {
                         foreach (OITM item in Data)
                         {
-                            var Data_ = context.t_Item.Where(w => w.t_Company.Equals(IdEmpresa) &&
+                            var Data_ = context.t_Item.Where(w => w.IdCompany.Equals(IdEmpresa) &&
                             w.ItemCode.Equals(item.ItemCode) &&
-                            w.FechaUp.ToString("yyyyMMdd") != DateTime.Now.ToString("yyyyMMdd")).FirstOrDefault();
+                            w.DateUp.Value != DateTime.Now).FirstOrDefault();
                             if (Data_ != null)
                             {
                                 Data_.ItemCode = item.ItemCode;
@@ -524,70 +662,72 @@ namespace AT.Integracion.Data
                                 Data_.BWeight2 = Convert.ToDecimal(item.BWeight2);
                                 Data_.BWght2Unit = item.BWght2Unit;
                                 Data_.FirmCode = item.FirmCode;
-                                Data_.FechaDown = DateTime.Now;
-
+                                Data_.DateUp = DateTime.Now;
+                                Data_.sysUpdateDate = DateTime.Now;
                                 //,validFor = item.validFor,
                                 //frozenFor = item.frozenFor
 
                                 context.t_Item.Attach(Data_);
                                 context.Entry(Data_).State = EntityState.Modified;
                             }
-                            else { 
-                            context.t_Item.Add(new t_Item()
+                            else
                             {
-                                ItemCode = item.ItemCode,
-                                ItemName = item.ItemName,
-                                OnHand = Convert.ToDecimal(item.OnHand),
-                                IsCommited = Convert.ToDecimal(item.IsCommited),
-                                OnOrder = Convert.ToDecimal(item.OnOrder),
-                                CardCode = item.CardCode,
-                                SuppCatNum = item.SuppCatNum,
-                                BuyUnitMsr = item.BuyUnitMsr,
-                                NumInBuy = Convert.ToDecimal(item.NumInBuy),
-                                SalUnitMsr = item.SalUnitMsr,
-                                NumInSale = Convert.ToDecimal(item.NumInSale),
-                                SHeight1 = Convert.ToDecimal(item.SHeight1),
-                                SHght1Unit = item.SHght1Unit,
-                                SHeight2 = Convert.ToDecimal(item.SHeight2),
-                                SHght2Unit = item.SHght2Unit,
-                                SWidth1 = Convert.ToDecimal(item.SWidth1),
-                                SWdth1Unit = item.SWdth1Unit,
-                                SWidth2 = Convert.ToDecimal(item.SWidth2),
-                                SWdth2Unit = item.SWdth2Unit,
-                                SLength1 = Convert.ToDecimal(item.SLength1),
-                                SLen1Unit = item.SLen1Unit,
-                                Slength2 = Convert.ToDecimal(item.Slength2),
-                                SLen2Unit = item.SLen2Unit,
-                                SVolume = Convert.ToDecimal(item.SVolume),
-                                SVolUnit = item.SVolUnit,
-                                SWeight1 = Convert.ToDecimal(item.SWeight1),
-                                SWght1Unit = item.SWght1Unit,
-                                SWeight2 = Convert.ToDecimal(item.SWeight2),
-                                SWght2Unit = item.SWght2Unit,
-                                BHeight1 = Convert.ToDecimal(item.BHeight1),
-                                BHght1Unit = item.BHght1Unit,
-                                BHeight2 = Convert.ToDecimal(item.BHeight2),
-                                BHght2Unit = item.BHght2Unit,
-                                BWidth1 = Convert.ToDecimal(item.BWidth1),
-                                BWdth1Unit = item.BWdth1Unit,
-                                BWidth2 = Convert.ToDecimal(item.BWidth2),
-                                BWdth2Unit = item.BWdth2Unit,
-                                BLength1 = Convert.ToDecimal(item.BLength1),
-                                BLen1Unit = item.BLen1Unit,
-                                Blength2 = Convert.ToDecimal(item.Blength2),
-                                BLen2Unit = item.BLen2Unit,
-                                BVolume = Convert.ToDecimal(item.BVolume),
-                                BVolUnit = item.BVolUnit,
-                                BWeight1 = Convert.ToDecimal(item.BWeight1),
-                                BWght1Unit = item.BWght1Unit,
-                                BWeight2 = Convert.ToDecimal(item.BWeight2),
-                                BWght2Unit = item.BWght2Unit,
-                                FirmCode = item.FirmCode,
-                                FechaDown = DateTime.Now,
-                                IdCompany = IdEmpresa
-                                //,validFor = item.validFor,
-                                //frozenFor = item.frozenFor
-                            });
+                                context.t_Item.Add(new t_Item()
+                                {
+                                    ItemCode = item.ItemCode,
+                                    ItemName = item.ItemName,
+                                    OnHand = Convert.ToDecimal(item.OnHand),
+                                    IsCommited = Convert.ToDecimal(item.IsCommited),
+                                    OnOrder = Convert.ToDecimal(item.OnOrder),
+                                    CardCode = item.CardCode,
+                                    SuppCatNum = item.SuppCatNum,
+                                    BuyUnitMsr = item.BuyUnitMsr,
+                                    NumInBuy = Convert.ToDecimal(item.NumInBuy),
+                                    SalUnitMsr = item.SalUnitMsr,
+                                    NumInSale = Convert.ToDecimal(item.NumInSale),
+                                    SHeight1 = Convert.ToDecimal(item.SHeight1),
+                                    SHght1Unit = item.SHght1Unit,
+                                    SHeight2 = Convert.ToDecimal(item.SHeight2),
+                                    SHght2Unit = item.SHght2Unit,
+                                    SWidth1 = Convert.ToDecimal(item.SWidth1),
+                                    SWdth1Unit = item.SWdth1Unit,
+                                    SWidth2 = Convert.ToDecimal(item.SWidth2),
+                                    SWdth2Unit = item.SWdth2Unit,
+                                    SLength1 = Convert.ToDecimal(item.SLength1),
+                                    SLen1Unit = item.SLen1Unit,
+                                    Slength2 = Convert.ToDecimal(item.Slength2),
+                                    SLen2Unit = item.SLen2Unit,
+                                    SVolume = Convert.ToDecimal(item.SVolume),
+                                    SVolUnit = item.SVolUnit,
+                                    SWeight1 = Convert.ToDecimal(item.SWeight1),
+                                    SWght1Unit = item.SWght1Unit,
+                                    SWeight2 = Convert.ToDecimal(item.SWeight2),
+                                    SWght2Unit = item.SWght2Unit,
+                                    BHeight1 = Convert.ToDecimal(item.BHeight1),
+                                    BHght1Unit = item.BHght1Unit,
+                                    BHeight2 = Convert.ToDecimal(item.BHeight2),
+                                    BHght2Unit = item.BHght2Unit,
+                                    BWidth1 = Convert.ToDecimal(item.BWidth1),
+                                    BWdth1Unit = item.BWdth1Unit,
+                                    BWidth2 = Convert.ToDecimal(item.BWidth2),
+                                    BWdth2Unit = item.BWdth2Unit,
+                                    BLength1 = Convert.ToDecimal(item.BLength1),
+                                    BLen1Unit = item.BLen1Unit,
+                                    Blength2 = Convert.ToDecimal(item.Blength2),
+                                    BLen2Unit = item.BLen2Unit,
+                                    BVolume = Convert.ToDecimal(item.BVolume),
+                                    BVolUnit = item.BVolUnit,
+                                    BWeight1 = Convert.ToDecimal(item.BWeight1),
+                                    BWght1Unit = item.BWght1Unit,
+                                    BWeight2 = Convert.ToDecimal(item.BWeight2),
+                                    BWght2Unit = item.BWght2Unit,
+                                    FirmCode = item.FirmCode,
+                                    DateUp = DateTime.Now,
+                                    sysCreateDate = DateTime.Now,
+                                    IdCompany = IdEmpresa
+                                    //,validFor = item.validFor,
+                                    //frozenFor = item.frozenFor
+                                });
                             }
                         }
 
@@ -595,7 +735,8 @@ namespace AT.Integracion.Data
 
                         if (Process != 0)
                         {
-                            Result.Add("0", "Procesado");
+                            if (!Result.ContainsKey("0"))
+                                Result.Add("0", "Procesado");
                         }
                     }
                     catch (Exception ex)
@@ -638,13 +779,13 @@ namespace AT.Integracion.Data
                         {
                             var Data_ = context.t_Seller.Where(w => w.IdCompany.Equals(IdEmpresa) &&
                             w.SlpCode.Equals(item.SlpCode) &&
-                            w.FechaUp.ToString("yyyyMMdd") != DateTime.Now.ToString("yyyyMMdd")).FirstOrDefault();
+                            w.DateUp.Value != DateTime.Now).FirstOrDefault();
 
                             if (Data_ != null)
                             {
                                 Data_.SlpName = item.SlpName;
                                 Data_.Email = item.Email;
-                                Data_.FechaUp = DateTime.Now;
+                                Data_.DateUp = DateTime.Now;
 
                                 context.t_Seller.Attach(Data_);
                                 context.Entry(Data_).State = EntityState.Modified;
@@ -656,7 +797,7 @@ namespace AT.Integracion.Data
                                     SlpCode = item.SlpCode,
                                     SlpName = item.SlpName,
                                     Email = item.Email,
-                                    FechaUp = DateTime.Now,
+                                    DateUp = DateTime.Now,
                                     IdCompany = IdEmpresa
                                 });
                             }
@@ -666,7 +807,8 @@ namespace AT.Integracion.Data
 
                         if (Process != 0)
                         {
-                            Result.Add("0", "Procesado");
+                            if (!Result.ContainsKey("0"))
+                                Result.Add("0", "Procesado");
                         }
                     }
                     catch (Exception ex)

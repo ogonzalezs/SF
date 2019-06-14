@@ -25,9 +25,12 @@ namespace AT.Integracion.Data
                             System.Reflection.MethodBase.GetCurrentMethod().Name));
             try
             {
-                if (ConnectionSAP.CompanySAP.Connected)
-                {
-                    ConnectionSAP.DisConnect();
+                if (ConnectionSAP.CompanySAP!= null)
+                { 
+                    if (ConnectionSAP.CompanySAP.Connected)
+                    {
+                        ConnectionSAP.DisConnect();
+                    }
                 }
             }
             catch (Exception)
@@ -136,6 +139,7 @@ namespace AT.Integracion.Data
                         {
                             Result = new BusinessPartner()
                             {
+                                CardCode = item.CardCode,
                                 Address = item.Address,
                                 Balance = item.Balance,
                                 CardCodeSAP = item.CardCode,
@@ -191,8 +195,7 @@ namespace AT.Integracion.Data
 
             try
             {
-                string SQL = string.Format(Generic.LoadFile("ITM1.dat", "Querys"),
-                        UpdateDate.ToString("yyyyMMdd"));
+                string SQL = Generic.LoadFile("ITM1.dat", "Querys");
 
                 if (log.IsDebugEnabled) log.Debug(SQL);
 
@@ -285,8 +288,7 @@ namespace AT.Integracion.Data
 
             try
             {
-                string SQL = string.Format(Generic.LoadFile("OSLP.dat", "Querys"),
-                        UpdateDate.ToString("yyyyMMdd"));
+                string SQL = Generic.LoadFile("OSLP.dat", "Querys");
 
                 if (log.IsDebugEnabled) log.Debug(SQL);
 

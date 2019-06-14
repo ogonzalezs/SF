@@ -17,4 +17,4 @@ T0."Country",
 T0."CntctPrsn"
 FROM "OCRD" AS T0
 WHERE T0."CardType"='C'
-AND IFNULL(T0."UpdateDate",T0."CreateDate")>='{0}'
+AND T0."CardCode"='{0}'

@@ -18,7 +18,8 @@ namespace AT.Integracion.Data
         public long IdCompany { get; set; }
         public string SlpName { get; set; }
         public string Email { get; set; }
-        public System.DateTime FechaUp { get; set; }
+        public Nullable<System.DateTime> DateUp { get; set; }
+        public Nullable<System.DateTime> DateDown { get; set; }
     
         public virtual t_Company t_Company { get; set; }
     }

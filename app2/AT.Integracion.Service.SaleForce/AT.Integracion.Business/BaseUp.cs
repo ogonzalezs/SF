@@ -66,9 +66,16 @@ namespace AT.Integracion.Business
                     {
                         using (var Data = new Data.BaseUp())
                         {
+                            var DB = string.Empty;
                             foreach (var item in Enlace)
                             {
-                                Data.Connect(item.FileName);
+                                if(DB!= item.FileName)
+                                {
+                                    Data.DisConnect();
+                                    Data.Connect(item.FileName);
+                                    DB = item.FileName;
+                                }
+                                
 
                                 switch (item.Table)
                                 {

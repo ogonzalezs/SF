@@ -12,33 +12,32 @@ namespace AT.Integracion.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class t_Orders
+    public partial class t_PurchaseRequest
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public t_Orders()
+        public t_PurchaseRequest()
         {
-            this.t_OrdersDetail = new HashSet<t_OrdersDetail>();
+            this.t_PurchaseRequestDetail = new HashSet<t_PurchaseRequestDetail>();
         }
     
         public long DocEntry { get; set; }
-        public long IdCompany { get; set; }
         public int DocNum { get; set; }
+        public Nullable<int> Branch { get; set; }
         public System.DateTime DocDate { get; set; }
+        public Nullable<System.DateTime> DocDueDate { get; set; }
         public string CardCode { get; set; }
+        public string CardName { get; set; }
         public string NumAtCard { get; set; }
         public decimal VatSum { get; set; }
-        public decimal DiscSum { get; set; }
         public decimal DocTotal { get; set; }
-        public string Ref1 { get; set; }
-        public string Ref2 { get; set; }
+        public decimal DiscSum { get; set; }
         public string Comments { get; set; }
         public Nullable<int> SlpCode { get; set; }
-        public Nullable<int> CntctCode { get; set; }
-        public Nullable<System.DateTime> DateUp { get; set; }
-        public Nullable<System.DateTime> DateDown { get; set; }
+        public string Requester { get; set; }
+        public string ReqName { get; set; }
+        public string DocStatus { get; set; }
     
-        public virtual t_Company t_Company { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<t_OrdersDetail> t_OrdersDetail { get; set; }
+        public virtual ICollection<t_PurchaseRequestDetail> t_PurchaseRequestDetail { get; set; }
     }
 }

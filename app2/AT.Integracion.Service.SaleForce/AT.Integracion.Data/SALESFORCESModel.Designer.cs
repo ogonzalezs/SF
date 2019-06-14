@@ -1,4 +1,4 @@
-﻿// La generación de código T4 está habilitada para el modelo 'I:\Fuerza de Venta\trunk\AT.Integracion.Service\AT.Integracion.Data\SALESFORCESModel.edmx'. 
+﻿// La generación de código T4 está habilitada para el modelo 'I:\Fuerza de Venta\trunk\AT.Integracion.Service.SaleForce\AT.Integracion.Data\SalesForcesModel.edmx'. 
 // Para habilitar la generación de código heredada, cambie el valor de la propiedad del diseñador 'Estrategia de generación de código'
 // por 'ObjectContext heredado'. Esta propiedad está disponible en la ventana Propiedades cuando se abre
 // el modelo en el diseñador.

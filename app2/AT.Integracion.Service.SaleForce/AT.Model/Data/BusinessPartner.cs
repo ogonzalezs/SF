@@ -8,7 +8,7 @@ namespace AT.Model.Data
 {
     public class BusinessPartner
     {
-        public long CardCode { get; set; }
+        public string CardCode { get; set; }
         public long IdEmpresa { get; set; }
         public string CardCodeSAP { get; set; }
         public string CardName { get; set; }

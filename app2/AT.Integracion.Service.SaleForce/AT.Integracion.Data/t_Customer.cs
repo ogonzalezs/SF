@@ -43,7 +43,8 @@ namespace AT.Integracion.Data
         public System.DateTime sysCreateDate { get; set; }
         public Nullable<System.DateTime> sysUpdateDate { get; set; }
         public string validFor { get; set; }
-        public System.DateTime FechaUp { get; set; }
+        public Nullable<System.DateTime> DateUp { get; set; }
+        public Nullable<System.DateTime> DateDown { get; set; }
         public Nullable<bool> sysIsDeleted { get; set; }
     
         public virtual t_Company t_Company { get; set; }

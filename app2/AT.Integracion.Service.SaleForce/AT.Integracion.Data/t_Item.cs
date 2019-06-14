@@ -69,8 +69,8 @@ namespace AT.Integracion.Data
         public Nullable<decimal> BWeight2 { get; set; }
         public Nullable<int> BWght2Unit { get; set; }
         public Nullable<int> FirmCode { get; set; }
-        public System.DateTime FechaDown { get; set; }
-        public System.DateTime FechaUp { get; set; }
+        public Nullable<System.DateTime> DateDown { get; set; }
+        public Nullable<System.DateTime> DateUp { get; set; }
         public System.DateTime sysCreateDate { get; set; }
         public Nullable<System.DateTime> sysUpdateDate { get; set; }
         public Nullable<bool> sysIsDeleted { get; set; }

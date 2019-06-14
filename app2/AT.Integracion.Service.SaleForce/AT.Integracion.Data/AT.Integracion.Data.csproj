@@ -46,68 +46,95 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="Querys\RDR1.dat" />
-    <None Include="Querys\ITM1.dat" />
-    <None Include="Querys\OITM.dat" />
-    <None Include="Querys\OCRD.dat" />
-    <None Include="Querys\OITW.dat" />
-    <None Include="Querys\OQUT.dat" />
-    <None Include="Querys\OSLP.dat" />
-    <None Include="Querys\QUT1.dat" />
-    <None Include="Querys\ORDR.dat" />
-    <EntityDeploy Include="SALESFORCESModel.edmx">
+    <Content Include="Querys\RDR1.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Querys\ITM1.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Querys\OITM.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Querys\OCRD.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Querys\OITW.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Querys\OQUT.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Querys\OSLP.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Querys\QUT1.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Querys\ORDR.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EntityDeploy Include="SalesForcesModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SALESFORCESModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>SalesForcesModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="SALESFORCESModel.edmx.diagram">
-      <DependentUpon>SALESFORCESModel.edmx</DependentUpon>
+    <Content Include="Querys\OCRD_CardCode.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="SalesForcesModel.edmx.diagram">
+      <DependentUpon>SalesForcesModel.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDown.cs" />
     <Compile Include="BaseSQLUp.cs" />
     <Compile Include="BaseUp.cs" />
-    <Compile Include="SALESFORCESModel.Context.cs">
+    <Compile Include="SalesForcesModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SALESFORCESModel.Context.tt</DependentUpon>
+      <DependentUpon>SalesForcesModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="SALESFORCESModel.cs">
+    <Compile Include="SalesForcesModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SALESFORCESModel.tt</DependentUpon>
+      <DependentUpon>SalesForcesModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="SALESFORCESModel.Designer.cs">
+    <Compile Include="SalesForcesModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SALESFORCESModel.edmx</DependentUpon>
+      <DependentUpon>SalesForcesModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="t_Company.cs">
-      <DependentUpon>SALESFORCESModel.tt</DependentUpon>
+      <DependentUpon>SalesForcesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="t_Connection.cs">
-      <DependentUpon>SALESFORCESModel.tt</DependentUpon>
+      <DependentUpon>SalesForcesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="t_Customer.cs">
-      <DependentUpon>SALESFORCESModel.tt</DependentUpon>
+      <DependentUpon>SalesForcesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="t_CustomerAddress.cs">
-      <DependentUpon>SALESFORCESModel.tt</DependentUpon>
+      <DependentUpon>SalesForcesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="t_Item.cs">
-      <DependentUpon>SALESFORCESModel.tt</DependentUpon>
+      <DependentUpon>SalesForcesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="t_ItemPrice.cs">
-      <DependentUpon>SALESFORCESModel.tt</DependentUpon>
+      <DependentUpon>SalesForcesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="t_Orders.cs">
-      <DependentUpon>SALESFORCESModel.tt</DependentUpon>
+      <DependentUpon>SalesForcesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="t_OrdersDetail.cs">
-      <DependentUpon>SALESFORCESModel.tt</DependentUpon>
+      <DependentUpon>SalesForcesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="t_PurchaseRequest.cs">
+      <DependentUpon>SalesForcesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="t_PurchaseRequestDetail.cs">
+      <DependentUpon>SalesForcesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="t_Seller.cs">
-      <DependentUpon>SALESFORCESModel.tt</DependentUpon>
+      <DependentUpon>SalesForcesModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -156,15 +183,16 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SALESFORCESModel.Context.tt">
+    <Content Include="SalesForcesModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SALESFORCESModel.edmx</DependentUpon>
-      <LastGenOutput>SALESFORCESModel.Context.cs</LastGenOutput>
+      <DependentUpon>SalesForcesModel.edmx</DependentUpon>
+      <LastGenOutput>SalesForcesModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="SALESFORCESModel.tt">
+    <Content Include="SalesForcesModel.edmx.sql" />
+    <Content Include="SalesForcesModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SALESFORCESModel.edmx</DependentUpon>
-      <LastGenOutput>SALESFORCESModel.cs</LastGenOutput>
+      <DependentUpon>SalesForcesModel.edmx</DependentUpon>
+      <LastGenOutput>SalesForcesModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

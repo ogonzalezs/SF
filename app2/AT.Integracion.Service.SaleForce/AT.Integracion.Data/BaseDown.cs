@@ -186,8 +186,8 @@ namespace AT.Integracion.Data
             {
                 Record = (SAPbobsCOM.Documents)ConnectionSAP.CompanySAP.GetBusinessObject(SAPbobsCOM.BoObjectTypes.oOrders);
 
-                Record.CardCode =  BusinessPartner_.CardCodeSAP;
-                Record.Comments = String.Format("{0}, Origen: Ecommerce, {1}", "Se ha generado una ordenes", Order_.DocEntry);
+                Record.CardCode =  BusinessPartner_.CardCode;
+                Record.Comments = String.Format("{0}, Origen: Aplicativo, {1}", "Se ha generado una orden", Order_.DocEntry);
                 Record.DocDueDate = DateTime.Today;
 
                 Record.DocType = BoDocumentTypes.dDocument_Items;
@@ -197,10 +197,10 @@ namespace AT.Integracion.Data
                 foreach (OrdersDetalle RowDetail in Order_.Detail_)
                 {
                     Record.Lines.ItemCode = RowDetail.ItemCode;
-                    Record.Lines.Quantity = RowDetail.Quantity;
+                    Record.Lines.Quantity = Convert.ToDouble(RowDetail.Quantity);
                     Record.Lines.TaxCode = "IVA";
                     //Record.Lines.Price = RowDetail.precio;
-                    Record.Lines.UnitPrice = RowDetail.Price;
+                    Record.Lines.UnitPrice = Convert.ToDouble(RowDetail.Price);
                     Record.Lines.Add();
                 }
 
@@ -255,6 +255,52 @@ namespace AT.Integracion.Data
             }
         }
 
+        public List<ORDR> GetOrders(string DocNum)
+        {
+            System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
+            watch.Start();
+
+            log.Info(String.Format("Se inicia la ejecución del metodo: {0}",
+                            System.Reflection.MethodBase.GetCurrentMethod().Name));
+            SAPbobsCOM.Recordset Record = null;
+
+            List<ORDR> Result = new List<ORDR>();
+
+            try
+            {
+                string SQL = string.Format(Generic.LoadFile("ORDR_DocNum.dat", "Querys"), DocNum);
+
+                if (log.IsDebugEnabled) log.Debug(SQL);
+
+                Record = (Recordset)ConnectionSAP.CompanySAP.GetBusinessObject(BoObjectTypes.BoRecordset);
+
+                Record.DoQuery(SQL);
+
+                if (Record.RecordCount > 0)
+                {
+                    Result = ManagerDataGeneric.GetDataQuery<ORDR>(Record);
+                }
+
+                return Result;
+            }
+            catch (COMException)
+            {
+                throw;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                Generic.FreeMemory<Recordset>(ref Record);
+                watch.Stop();
+
+                if (log.IsDebugEnabled) log.DebugFormat("{0} Se ejecuto en {1} ms",
+                    System.Reflection.MethodBase.GetCurrentMethod().Name, watch.ElapsedMilliseconds);
+            }
+        }
+
         public Dictionary<string, string> CreateOrders(List<Orders> Result, String Prefijo,  long IdEmpresa)
         {
             System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
@@ -265,7 +311,6 @@ namespace AT.Integracion.Data
 
             Dictionary<string, string> Actualizar = new Dictionary<string, string>();
 
-            SAPbobsCOM.Documents Record = null;
             string ErrMsg = "";
             try
             {
@@ -274,14 +319,18 @@ namespace AT.Integracion.Data
                     bool ExistsBusinessPartner = false;
                     BusinessPartner BusinessPartner_ = new BusinessPartner();
 
+                    using (var Data = new BaseSQLUp())
+                    {
+                        BusinessPartner_ = Data.ObtenerBussinesPartner(Row.CardCode, IdEmpresa);
+                    }
+
                     try
                     {
 
                         if (BusinessPartner_.CardType != "1")
                         {
-                            if (Row.CardCode.Length > 0)
+                            if (BusinessPartner_.Identificacion.Length > 0)
                             {
-                                log.Debug("RUT " + BusinessPartner_.Identificacion);
                                 using (var Data = new BaseUp())
                                 {
                                     BusinessPartner_ = Data.ObtenerBussinesPartnerSAP(BusinessPartner_, IdEmpresa);
@@ -406,7 +455,6 @@ namespace AT.Integracion.Data
             }
             finally
             {
-                Generic.FreeMemory<Documents>(ref Record);
 
                 watch.Stop();
 

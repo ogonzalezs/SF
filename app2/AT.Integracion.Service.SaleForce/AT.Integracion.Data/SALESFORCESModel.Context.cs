@@ -33,6 +33,8 @@ namespace AT.Integracion.Data
         public virtual DbSet<t_ItemPrice> t_ItemPrice { get; set; }
         public virtual DbSet<t_Orders> t_Orders { get; set; }
         public virtual DbSet<t_OrdersDetail> t_OrdersDetail { get; set; }
+        public virtual DbSet<t_PurchaseRequest> t_PurchaseRequest { get; set; }
+        public virtual DbSet<t_PurchaseRequestDetail> t_PurchaseRequestDetail { get; set; }
         public virtual DbSet<t_Seller> t_Seller { get; set; }
     }
 }

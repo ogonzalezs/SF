@@ -18,7 +18,8 @@ namespace AT.Integracion.Data
         public long IdCompany { get; set; }
         public int PriceList { get; set; }
         public Nullable<decimal> Price { get; set; }
-        public System.DateTime FechaUp { get; set; }
+        public Nullable<System.DateTime> DateUp { get; set; }
+        public Nullable<System.DateTime> DateDown { get; set; }
     
         public virtual t_Item t_Item { get; set; }
     }

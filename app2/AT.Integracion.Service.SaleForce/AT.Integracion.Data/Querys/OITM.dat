@@ -49,7 +49,7 @@ T0."BWght2Unit",
 T0."FirmCode",
 T0."validFor",
 T0."frozenFor"
-FROM "OCRD" AS T0
+FROM "OITM" AS T0
 WHERE T0."SellItem"='Y'
 AND T0."InvntItem"='Y'
 AND IFNULL(T0."UpdateDate",T0."CreateDate")>='{0}'
