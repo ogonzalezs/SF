@@ -1,0 +1,1107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SALESFORCESModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="t_Company">
+          <Key>
+            <PropertyRef Name="IdCompany" />
+          </Key>
+          <Property Name="IdCompany" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Company" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="IdConnection" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_Connection">
+          <Key>
+            <PropertyRef Name="IdConnection" />
+          </Key>
+          <Property Name="IdConnection" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="ConnectionString" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Proveedor" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="t_Customer">
+          <Key>
+            <PropertyRef Name="CardCode" />
+            <PropertyRef Name="IdCompany" />
+          </Key>
+          <Property Name="CardCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdCompany" Type="bigint" Nullable="false" />
+          <Property Name="CardCodeSAP" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CardName" Type="nvarchar" MaxLength="100" />
+          <Property Name="CardType" Type="nchar" MaxLength="1" />
+          <Property Name="Address" Type="nvarchar" MaxLength="100" />
+          <Property Name="ZipCode" Type="nvarchar" MaxLength="20" />
+          <Property Name="Phone1" Type="nvarchar" MaxLength="20" />
+          <Property Name="Phone2" Type="nvarchar" MaxLength="20" />
+          <Property Name="CntctPrsn" Type="nvarchar" MaxLength="90" />
+          <Property Name="Balance" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="CreditLine" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="Identificacion" Type="nvarchar" MaxLength="32" />
+          <Property Name="ListNum" Type="nvarchar" MaxLength="32" />
+          <Property Name="Cellular" Type="nvarchar" MaxLength="20" />
+          <Property Name="City" Type="nvarchar" MaxLength="100" />
+          <Property Name="County" Type="nvarchar" MaxLength="100" />
+          <Property Name="State" Type="nvarchar" MaxLength="100" />
+          <Property Name="Country" Type="nvarchar" MaxLength="100" />
+          <Property Name="E_Mail" Type="nvarchar" MaxLength="100" />
+          <Property Name="sysCreateDate" Type="datetime" Nullable="false" />
+          <Property Name="sysUpdateDate" Type="datetime" />
+          <Property Name="validFor" Type="nchar" MaxLength="1" />
+          <Property Name="DateUp" Type="datetime" />
+          <Property Name="DateDown" Type="datetime" />
+          <Property Name="sysIsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="t_CustomerAddress">
+          <Key>
+            <PropertyRef Name="CustomerAddress" />
+            <PropertyRef Name="IdCompany" />
+            <PropertyRef Name="CardCode" />
+          </Key>
+          <Property Name="CustomerAddress" Type="bigint" Nullable="false" />
+          <Property Name="IdCompany" Type="bigint" Nullable="false" />
+          <Property Name="CardCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Tipo" Type="nchar" MaxLength="2" />
+          <Property Name="Address" Type="nvarchar" MaxLength="100" />
+          <Property Name="ZipCode" Type="nvarchar" MaxLength="20" />
+          <Property Name="Phone1" Type="nvarchar" MaxLength="20" />
+          <Property Name="City" Type="nvarchar" MaxLength="100" />
+          <Property Name="County" Type="nvarchar" MaxLength="100" />
+          <Property Name="State" Type="nvarchar" MaxLength="100" />
+          <Property Name="Country" Type="nvarchar" MaxLength="100" />
+          <Property Name="E_Mail" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="validFor" Type="nchar" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="t_Item">
+          <Key>
+            <PropertyRef Name="ItemCode" />
+            <PropertyRef Name="IdCompany" />
+          </Key>
+          <Property Name="ItemCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdCompany" Type="bigint" Nullable="false" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="500" />
+          <Property Name="OnHand" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="IsCommited" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="OnOrder" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="CardCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="SuppCatNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="BuyUnitMsr" Type="nvarchar" MaxLength="50" />
+          <Property Name="NumInBuy" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="SalUnitMsr" Type="nvarchar" MaxLength="50" />
+          <Property Name="NumInSale" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="SHeight1" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="SHght1Unit" Type="int" />
+          <Property Name="SHeight2" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="SHght2Unit" Type="int" />
+          <Property Name="SWidth1" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="SWdth1Unit" Type="int" />
+          <Property Name="SWidth2" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="SWdth2Unit" Type="int" />
+          <Property Name="SLength1" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="SLen1Unit" Type="int" />
+          <Property Name="Slength2" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="SLen2Unit" Type="int" />
+          <Property Name="SVolume" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="SVolUnit" Type="int" />
+          <Property Name="SWeight1" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="SWght1Unit" Type="int" />
+          <Property Name="SWeight2" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="SWght2Unit" Type="int" />
+          <Property Name="BHeight1" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="BHght1Unit" Type="int" />
+          <Property Name="BHeight2" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="BHght2Unit" Type="int" />
+          <Property Name="BWidth1" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="BWdth1Unit" Type="int" />
+          <Property Name="BWidth2" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="BWdth2Unit" Type="int" />
+          <Property Name="BLength1" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="BLen1Unit" Type="int" />
+          <Property Name="Blength2" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="BLen2Unit" Type="int" />
+          <Property Name="BVolume" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="BVolUnit" Type="int" />
+          <Property Name="BWeight1" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="BWght1Unit" Type="int" />
+          <Property Name="BWeight2" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="BWght2Unit" Type="int" />
+          <Property Name="FirmCode" Type="int" />
+          <Property Name="DateDown" Type="datetime" />
+          <Property Name="DateUp" Type="datetime" />
+          <Property Name="sysCreateDate" Type="datetime" Nullable="false" />
+          <Property Name="sysUpdateDate" Type="datetime" />
+          <Property Name="sysIsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="t_ItemPrice">
+          <Key>
+            <PropertyRef Name="ItemCode" />
+            <PropertyRef Name="IdCompany" />
+            <PropertyRef Name="PriceList" />
+          </Key>
+          <Property Name="ItemCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdCompany" Type="bigint" Nullable="false" />
+          <Property Name="PriceList" Type="int" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="DateUp" Type="datetime" />
+          <Property Name="DateDown" Type="datetime" />
+        </EntityType>
+        <EntityType Name="t_Orders">
+          <Key>
+            <PropertyRef Name="DocEntry" />
+            <PropertyRef Name="IdCompany" />
+          </Key>
+          <Property Name="DocEntry" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCompany" Type="bigint" Nullable="false" />
+          <Property Name="DocNum" Type="int" Nullable="false" />
+          <Property Name="DocDate" Type="datetime" Nullable="false" />
+          <Property Name="CardCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NumAtCard" Type="nvarchar" MaxLength="50" />
+          <Property Name="VatSum" Type="decimal" Precision="19" Scale="6" Nullable="false" />
+          <Property Name="DiscSum" Type="decimal" Precision="19" Scale="6" Nullable="false" />
+          <Property Name="DocTotal" Type="decimal" Precision="19" Scale="6" Nullable="false" />
+          <Property Name="Ref1" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ref2" Type="nvarchar" MaxLength="50" />
+          <Property Name="Comments" Type="nvarchar(max)" />
+          <Property Name="SlpCode" Type="int" />
+          <Property Name="CntctCode" Type="int" />
+          <Property Name="DateUp" Type="datetime" />
+          <Property Name="DateDown" Type="datetime" />
+        </EntityType>
+        <EntityType Name="t_OrdersDetail">
+          <Key>
+            <PropertyRef Name="DocEntry" />
+            <PropertyRef Name="LineNum" />
+            <PropertyRef Name="IdCompany" />
+          </Key>
+          <Property Name="DocEntry" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LineNum" Type="int" Nullable="false" />
+          <Property Name="IdCompany" Type="bigint" Nullable="false" />
+          <Property Name="ItemCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Dscription" Type="nvarchar" MaxLength="500" />
+          <Property Name="Quantity" Type="decimal" Precision="19" Scale="6" Nullable="false" />
+          <Property Name="ShipDate" Type="datetime" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="19" Scale="6" Nullable="false" />
+          <Property Name="DiscPrcnt" Type="decimal" Precision="19" Scale="6" Nullable="false" />
+          <Property Name="LineTotal" Type="decimal" Precision="19" Scale="6" Nullable="false" />
+          <Property Name="WhsCode" Type="nchar" MaxLength="10" />
+          <Property Name="VatSum" Type="decimal" Precision="19" Scale="6" Nullable="false" />
+          <Property Name="TaxCode" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="t_PurchaseRequest">
+          <Key>
+            <PropertyRef Name="DocEntry" />
+          </Key>
+          <Property Name="DocEntry" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DocNum" Type="int" Nullable="false" />
+          <Property Name="Branch" Type="int" />
+          <Property Name="DocDate" Type="datetime" Nullable="false" />
+          <Property Name="DocDueDate" Type="datetime" />
+          <Property Name="CardCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CardName" Type="nvarchar" MaxLength="150" />
+          <Property Name="NumAtCard" Type="nvarchar" MaxLength="50" />
+          <Property Name="VatSum" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="DocTotal" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="DiscSum" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="Comments" Type="nvarchar(max)" />
+          <Property Name="SlpCode" Type="int" />
+          <Property Name="Requester" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReqName" Type="nvarchar" MaxLength="150" />
+          <Property Name="DocStatus" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_PurchaseRequestDetail">
+          <Key>
+            <PropertyRef Name="DocEntry" />
+            <PropertyRef Name="LineNum" />
+          </Key>
+          <Property Name="DocEntry" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LineNum" Type="int" Nullable="false" />
+          <Property Name="ItemCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Dscription" Type="nvarchar" MaxLength="50" />
+          <Property Name="Quantity" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="ShipDate" Type="datetime" />
+          <Property Name="ReqDate" Type="nchar" MaxLength="10" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="PriceAfVAT" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="PriceBefDi" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="WhsCode" Type="nchar" MaxLength="10" />
+          <Property Name="OpenQty" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="VatSum" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="DiscPrcnt" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="LineTotal" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_Seller">
+          <Key>
+            <PropertyRef Name="SlpCode" />
+          </Key>
+          <Property Name="SlpCode" Type="int" Nullable="false" />
+          <Property Name="IdCompany" Type="bigint" Nullable="false" />
+          <Property Name="SlpName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="DateUp" Type="datetime" />
+          <Property Name="DateDown" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_Cliente_Empresa">
+          <End Role="t_Company" Type="Self.t_Company" Multiplicity="1" />
+          <End Role="t_Customer" Type="Self.t_Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Company">
+              <PropertyRef Name="IdCompany" />
+            </Principal>
+            <Dependent Role="t_Customer">
+              <PropertyRef Name="IdCompany" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClienteDireccion_Cliente">
+          <End Role="t_Customer" Type="Self.t_Customer" Multiplicity="1" />
+          <End Role="t_CustomerAddress" Type="Self.t_CustomerAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Customer">
+              <PropertyRef Name="CardCode" />
+              <PropertyRef Name="IdCompany" />
+            </Principal>
+            <Dependent Role="t_CustomerAddress">
+              <PropertyRef Name="CardCode" />
+              <PropertyRef Name="IdCompany" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Empresa_Connection">
+          <End Role="t_Connection" Type="Self.t_Connection" Multiplicity="1" />
+          <End Role="t_Company" Type="Self.t_Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Connection">
+              <PropertyRef Name="IdConnection" />
+            </Principal>
+            <Dependent Role="t_Company">
+              <PropertyRef Name="IdConnection" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orden_Empresa">
+          <End Role="t_Company" Type="Self.t_Company" Multiplicity="1" />
+          <End Role="t_Orders" Type="Self.t_Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Company">
+              <PropertyRef Name="IdCompany" />
+            </Principal>
+            <Dependent Role="t_Orders">
+              <PropertyRef Name="IdCompany" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdenDetalle_Orden">
+          <End Role="t_Orders" Type="Self.t_Orders" Multiplicity="1" />
+          <End Role="t_OrdersDetail" Type="Self.t_OrdersDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Orders">
+              <PropertyRef Name="DocEntry" />
+              <PropertyRef Name="IdCompany" />
+            </Principal>
+            <Dependent Role="t_OrdersDetail">
+              <PropertyRef Name="DocEntry" />
+              <PropertyRef Name="IdCompany" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_Empresa">
+          <End Role="t_Company" Type="Self.t_Company" Multiplicity="1" />
+          <End Role="t_Item" Type="Self.t_Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Company">
+              <PropertyRef Name="IdCompany" />
+            </Principal>
+            <Dependent Role="t_Item">
+              <PropertyRef Name="IdCompany" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductoPrecio_Producto">
+          <End Role="t_Item" Type="Self.t_Item" Multiplicity="1" />
+          <End Role="t_ItemPrice" Type="Self.t_ItemPrice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Item">
+              <PropertyRef Name="ItemCode" />
+              <PropertyRef Name="IdCompany" />
+            </Principal>
+            <Dependent Role="t_ItemPrice">
+              <PropertyRef Name="ItemCode" />
+              <PropertyRef Name="IdCompany" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_PurchaseRequest_t_PurchaseRequest">
+          <End Role="t_PurchaseRequest" Type="Self.t_PurchaseRequest" Multiplicity="1" />
+          <End Role="t_PurchaseRequestDetail" Type="Self.t_PurchaseRequestDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_PurchaseRequest">
+              <PropertyRef Name="DocEntry" />
+            </Principal>
+            <Dependent Role="t_PurchaseRequestDetail">
+              <PropertyRef Name="DocEntry" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vendedor_Empresa">
+          <End Role="t_Company" Type="Self.t_Company" Multiplicity="1" />
+          <End Role="t_Seller" Type="Self.t_Seller" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Company">
+              <PropertyRef Name="IdCompany" />
+            </Principal>
+            <Dependent Role="t_Seller">
+              <PropertyRef Name="IdCompany" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SALESFORCESModelStoreContainer">
+          <EntitySet Name="t_Company" EntityType="Self.t_Company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_Connection" EntityType="Self.t_Connection" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_Customer" EntityType="Self.t_Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_CustomerAddress" EntityType="Self.t_CustomerAddress" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_Item" EntityType="Self.t_Item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_ItemPrice" EntityType="Self.t_ItemPrice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_Orders" EntityType="Self.t_Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_OrdersDetail" EntityType="Self.t_OrdersDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_PurchaseRequest" EntityType="Self.t_PurchaseRequest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_PurchaseRequestDetail" EntityType="Self.t_PurchaseRequestDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_Seller" EntityType="Self.t_Seller" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Cliente_Empresa" Association="Self.FK_Cliente_Empresa">
+            <End Role="t_Company" EntitySet="t_Company" />
+            <End Role="t_Customer" EntitySet="t_Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClienteDireccion_Cliente" Association="Self.FK_ClienteDireccion_Cliente">
+            <End Role="t_Customer" EntitySet="t_Customer" />
+            <End Role="t_CustomerAddress" EntitySet="t_CustomerAddress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Empresa_Connection" Association="Self.FK_Empresa_Connection">
+            <End Role="t_Connection" EntitySet="t_Connection" />
+            <End Role="t_Company" EntitySet="t_Company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orden_Empresa" Association="Self.FK_Orden_Empresa">
+            <End Role="t_Company" EntitySet="t_Company" />
+            <End Role="t_Orders" EntitySet="t_Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdenDetalle_Orden" Association="Self.FK_OrdenDetalle_Orden">
+            <End Role="t_Orders" EntitySet="t_Orders" />
+            <End Role="t_OrdersDetail" EntitySet="t_OrdersDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_Empresa" Association="Self.FK_Producto_Empresa">
+            <End Role="t_Company" EntitySet="t_Company" />
+            <End Role="t_Item" EntitySet="t_Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductoPrecio_Producto" Association="Self.FK_ProductoPrecio_Producto">
+            <End Role="t_Item" EntitySet="t_Item" />
+            <End Role="t_ItemPrice" EntitySet="t_ItemPrice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_PurchaseRequest_t_PurchaseRequest" Association="Self.FK_t_PurchaseRequest_t_PurchaseRequest">
+            <End Role="t_PurchaseRequest" EntitySet="t_PurchaseRequest" />
+            <End Role="t_PurchaseRequestDetail" EntitySet="t_PurchaseRequestDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vendedor_Empresa" Association="Self.FK_Vendedor_Empresa">
+            <End Role="t_Company" EntitySet="t_Company" />
+            <End Role="t_Seller" EntitySet="t_Seller" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SALESFORCESModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="t_Company">
+          <Key>
+            <PropertyRef Name="IdCompany" />
+          </Key>
+          <Property Name="IdCompany" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Company" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdConnection" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="t_Customer" Relationship="Self.FK_Cliente_Empresa" FromRole="t_Company" ToRole="t_Customer" />
+          <NavigationProperty Name="t_Connection" Relationship="Self.FK_Empresa_Connection" FromRole="t_Company" ToRole="t_Connection" />
+          <NavigationProperty Name="t_Orders" Relationship="Self.FK_Orden_Empresa" FromRole="t_Company" ToRole="t_Orders" />
+          <NavigationProperty Name="t_Item" Relationship="Self.FK_Producto_Empresa" FromRole="t_Company" ToRole="t_Item" />
+          <NavigationProperty Name="t_Seller" Relationship="Self.FK_Vendedor_Empresa" FromRole="t_Company" ToRole="t_Seller" />
+        </EntityType>
+        <EntityType Name="t_Connection">
+          <Key>
+            <PropertyRef Name="IdConnection" />
+          </Key>
+          <Property Name="IdConnection" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ConnectionString" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Proveedor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="t_Company" Relationship="Self.FK_Empresa_Connection" FromRole="t_Connection" ToRole="t_Company" />
+        </EntityType>
+        <EntityType Name="t_Customer">
+          <Key>
+            <PropertyRef Name="CardCode" />
+            <PropertyRef Name="IdCompany" />
+          </Key>
+          <Property Name="CardCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdCompany" Type="Int64" Nullable="false" />
+          <Property Name="CardCodeSAP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CardName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CardType" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ZipCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Phone1" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Phone2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CntctPrsn" Type="String" MaxLength="90" FixedLength="false" Unicode="true" />
+          <Property Name="Balance" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="CreditLine" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="Identificacion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="ListNum" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="Cellular" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="County" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="E_Mail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="sysCreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="sysUpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="validFor" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="DateUp" Type="DateTime" Precision="3" />
+          <Property Name="DateDown" Type="DateTime" Precision="3" />
+          <Property Name="sysIsDeleted" Type="Boolean" />
+          <NavigationProperty Name="t_Company" Relationship="Self.FK_Cliente_Empresa" FromRole="t_Customer" ToRole="t_Company" />
+          <NavigationProperty Name="t_CustomerAddress" Relationship="Self.FK_ClienteDireccion_Cliente" FromRole="t_Customer" ToRole="t_CustomerAddress" />
+        </EntityType>
+        <EntityType Name="t_CustomerAddress">
+          <Key>
+            <PropertyRef Name="CustomerAddress" />
+            <PropertyRef Name="IdCompany" />
+            <PropertyRef Name="CardCode" />
+          </Key>
+          <Property Name="CustomerAddress" Type="Int64" Nullable="false" />
+          <Property Name="IdCompany" Type="Int64" Nullable="false" />
+          <Property Name="CardCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Tipo" Type="String" MaxLength="2" FixedLength="true" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ZipCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Phone1" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="County" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="E_Mail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="validFor" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="t_Customer" Relationship="Self.FK_ClienteDireccion_Cliente" FromRole="t_CustomerAddress" ToRole="t_Customer" />
+        </EntityType>
+        <EntityType Name="t_Item">
+          <Key>
+            <PropertyRef Name="ItemCode" />
+            <PropertyRef Name="IdCompany" />
+          </Key>
+          <Property Name="ItemCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdCompany" Type="Int64" Nullable="false" />
+          <Property Name="ItemName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="OnHand" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="IsCommited" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="OnOrder" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="CardCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SuppCatNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BuyUnitMsr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NumInBuy" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="SalUnitMsr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NumInSale" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="SHeight1" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="SHght1Unit" Type="Int32" />
+          <Property Name="SHeight2" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="SHght2Unit" Type="Int32" />
+          <Property Name="SWidth1" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="SWdth1Unit" Type="Int32" />
+          <Property Name="SWidth2" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="SWdth2Unit" Type="Int32" />
+          <Property Name="SLength1" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="SLen1Unit" Type="Int32" />
+          <Property Name="Slength2" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="SLen2Unit" Type="Int32" />
+          <Property Name="SVolume" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="SVolUnit" Type="Int32" />
+          <Property Name="SWeight1" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="SWght1Unit" Type="Int32" />
+          <Property Name="SWeight2" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="SWght2Unit" Type="Int32" />
+          <Property Name="BHeight1" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="BHght1Unit" Type="Int32" />
+          <Property Name="BHeight2" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="BHght2Unit" Type="Int32" />
+          <Property Name="BWidth1" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="BWdth1Unit" Type="Int32" />
+          <Property Name="BWidth2" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="BWdth2Unit" Type="Int32" />
+          <Property Name="BLength1" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="BLen1Unit" Type="Int32" />
+          <Property Name="Blength2" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="BLen2Unit" Type="Int32" />
+          <Property Name="BVolume" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="BVolUnit" Type="Int32" />
+          <Property Name="BWeight1" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="BWght1Unit" Type="Int32" />
+          <Property Name="BWeight2" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="BWght2Unit" Type="Int32" />
+          <Property Name="FirmCode" Type="Int32" />
+          <Property Name="DateDown" Type="DateTime" Precision="3" />
+          <Property Name="DateUp" Type="DateTime" Precision="3" />
+          <Property Name="sysCreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="sysUpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="sysIsDeleted" Type="Boolean" />
+          <NavigationProperty Name="t_Company" Relationship="Self.FK_Producto_Empresa" FromRole="t_Item" ToRole="t_Company" />
+          <NavigationProperty Name="t_ItemPrice" Relationship="Self.FK_ProductoPrecio_Producto" FromRole="t_Item" ToRole="t_ItemPrice" />
+        </EntityType>
+        <EntityType Name="t_ItemPrice">
+          <Key>
+            <PropertyRef Name="ItemCode" />
+            <PropertyRef Name="IdCompany" />
+            <PropertyRef Name="PriceList" />
+          </Key>
+          <Property Name="ItemCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdCompany" Type="Int64" Nullable="false" />
+          <Property Name="PriceList" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="DateUp" Type="DateTime" Precision="3" />
+          <Property Name="DateDown" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="t_Item" Relationship="Self.FK_ProductoPrecio_Producto" FromRole="t_ItemPrice" ToRole="t_Item" />
+        </EntityType>
+        <EntityType Name="t_Orders">
+          <Key>
+            <PropertyRef Name="DocEntry" />
+            <PropertyRef Name="IdCompany" />
+          </Key>
+          <Property Name="DocEntry" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCompany" Type="Int64" Nullable="false" />
+          <Property Name="DocNum" Type="Int32" Nullable="false" />
+          <Property Name="DocDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CardCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NumAtCard" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VatSum" Type="Decimal" Precision="19" Scale="6" Nullable="false" />
+          <Property Name="DiscSum" Type="Decimal" Precision="19" Scale="6" Nullable="false" />
+          <Property Name="DocTotal" Type="Decimal" Precision="19" Scale="6" Nullable="false" />
+          <Property Name="Ref1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ref2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SlpCode" Type="Int32" />
+          <Property Name="CntctCode" Type="Int32" />
+          <Property Name="DateUp" Type="DateTime" Precision="3" />
+          <Property Name="DateDown" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="t_Company" Relationship="Self.FK_Orden_Empresa" FromRole="t_Orders" ToRole="t_Company" />
+          <NavigationProperty Name="t_OrdersDetail" Relationship="Self.FK_OrdenDetalle_Orden" FromRole="t_Orders" ToRole="t_OrdersDetail" />
+        </EntityType>
+        <EntityType Name="t_OrdersDetail">
+          <Key>
+            <PropertyRef Name="DocEntry" />
+            <PropertyRef Name="LineNum" />
+            <PropertyRef Name="IdCompany" />
+          </Key>
+          <Property Name="DocEntry" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LineNum" Type="Int32" Nullable="false" />
+          <Property Name="IdCompany" Type="Int64" Nullable="false" />
+          <Property Name="ItemCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Dscription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Decimal" Precision="19" Scale="6" Nullable="false" />
+          <Property Name="ShipDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="6" Nullable="false" />
+          <Property Name="DiscPrcnt" Type="Decimal" Precision="19" Scale="6" Nullable="false" />
+          <Property Name="LineTotal" Type="Decimal" Precision="19" Scale="6" Nullable="false" />
+          <Property Name="WhsCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="VatSum" Type="Decimal" Precision="19" Scale="6" Nullable="false" />
+          <Property Name="TaxCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="t_Orders" Relationship="Self.FK_OrdenDetalle_Orden" FromRole="t_OrdersDetail" ToRole="t_Orders" />
+        </EntityType>
+        <EntityType Name="t_PurchaseRequest">
+          <Key>
+            <PropertyRef Name="DocEntry" />
+          </Key>
+          <Property Name="DocEntry" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DocNum" Type="Int32" Nullable="false" />
+          <Property Name="Branch" Type="Int32" />
+          <Property Name="DocDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DocDueDate" Type="DateTime" Precision="3" />
+          <Property Name="CardCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CardName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="NumAtCard" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VatSum" Type="Decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="DocTotal" Type="Decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="DiscSum" Type="Decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SlpCode" Type="Int32" />
+          <Property Name="Requester" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReqName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="DocStatus" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="t_PurchaseRequestDetail" Relationship="Self.FK_t_PurchaseRequest_t_PurchaseRequest" FromRole="t_PurchaseRequest" ToRole="t_PurchaseRequestDetail" />
+        </EntityType>
+        <EntityType Name="t_PurchaseRequestDetail">
+          <Key>
+            <PropertyRef Name="DocEntry" />
+            <PropertyRef Name="LineNum" />
+          </Key>
+          <Property Name="DocEntry" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LineNum" Type="Int32" Nullable="false" />
+          <Property Name="ItemCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Dscription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="ShipDate" Type="DateTime" Precision="3" />
+          <Property Name="ReqDate" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="PriceAfVAT" Type="Decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="PriceBefDi" Type="Decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="WhsCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="OpenQty" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="VatSum" Type="Decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="DiscPrcnt" Type="Decimal" Precision="18" Scale="6" Nullable="false" />
+          <Property Name="LineTotal" Type="Decimal" Precision="18" Scale="6" Nullable="false" />
+          <NavigationProperty Name="t_PurchaseRequest" Relationship="Self.FK_t_PurchaseRequest_t_PurchaseRequest" FromRole="t_PurchaseRequestDetail" ToRole="t_PurchaseRequest" />
+        </EntityType>
+        <EntityType Name="t_Seller">
+          <Key>
+            <PropertyRef Name="SlpCode" />
+          </Key>
+          <Property Name="SlpCode" Type="Int32" Nullable="false" />
+          <Property Name="IdCompany" Type="Int64" Nullable="false" />
+          <Property Name="SlpName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateUp" Type="DateTime" Precision="3" />
+          <Property Name="DateDown" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="t_Company" Relationship="Self.FK_Vendedor_Empresa" FromRole="t_Seller" ToRole="t_Company" />
+        </EntityType>
+        <Association Name="FK_Cliente_Empresa">
+          <End Role="t_Company" Type="Self.t_Company" Multiplicity="1" />
+          <End Role="t_Customer" Type="Self.t_Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Company">
+              <PropertyRef Name="IdCompany" />
+            </Principal>
+            <Dependent Role="t_Customer">
+              <PropertyRef Name="IdCompany" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Empresa_Connection">
+          <End Role="t_Connection" Type="Self.t_Connection" Multiplicity="1" />
+          <End Role="t_Company" Type="Self.t_Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Connection">
+              <PropertyRef Name="IdConnection" />
+            </Principal>
+            <Dependent Role="t_Company">
+              <PropertyRef Name="IdConnection" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orden_Empresa">
+          <End Role="t_Company" Type="Self.t_Company" Multiplicity="1" />
+          <End Role="t_Orders" Type="Self.t_Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Company">
+              <PropertyRef Name="IdCompany" />
+            </Principal>
+            <Dependent Role="t_Orders">
+              <PropertyRef Name="IdCompany" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Producto_Empresa">
+          <End Role="t_Company" Type="Self.t_Company" Multiplicity="1" />
+          <End Role="t_Item" Type="Self.t_Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Company">
+              <PropertyRef Name="IdCompany" />
+            </Principal>
+            <Dependent Role="t_Item">
+              <PropertyRef Name="IdCompany" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vendedor_Empresa">
+          <End Role="t_Company" Type="Self.t_Company" Multiplicity="1" />
+          <End Role="t_Seller" Type="Self.t_Seller" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Company">
+              <PropertyRef Name="IdCompany" />
+            </Principal>
+            <Dependent Role="t_Seller">
+              <PropertyRef Name="IdCompany" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClienteDireccion_Cliente">
+          <End Role="t_Customer" Type="Self.t_Customer" Multiplicity="1" />
+          <End Role="t_CustomerAddress" Type="Self.t_CustomerAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Customer">
+              <PropertyRef Name="CardCode" />
+              <PropertyRef Name="IdCompany" />
+            </Principal>
+            <Dependent Role="t_CustomerAddress">
+              <PropertyRef Name="CardCode" />
+              <PropertyRef Name="IdCompany" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductoPrecio_Producto">
+          <End Role="t_Item" Type="Self.t_Item" Multiplicity="1" />
+          <End Role="t_ItemPrice" Type="Self.t_ItemPrice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Item">
+              <PropertyRef Name="ItemCode" />
+              <PropertyRef Name="IdCompany" />
+            </Principal>
+            <Dependent Role="t_ItemPrice">
+              <PropertyRef Name="ItemCode" />
+              <PropertyRef Name="IdCompany" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdenDetalle_Orden">
+          <End Role="t_Orders" Type="Self.t_Orders" Multiplicity="1" />
+          <End Role="t_OrdersDetail" Type="Self.t_OrdersDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_Orders">
+              <PropertyRef Name="DocEntry" />
+              <PropertyRef Name="IdCompany" />
+            </Principal>
+            <Dependent Role="t_OrdersDetail">
+              <PropertyRef Name="DocEntry" />
+              <PropertyRef Name="IdCompany" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_t_PurchaseRequest_t_PurchaseRequest">
+          <End Role="t_PurchaseRequest" Type="Self.t_PurchaseRequest" Multiplicity="1" />
+          <End Role="t_PurchaseRequestDetail" Type="Self.t_PurchaseRequestDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_PurchaseRequest">
+              <PropertyRef Name="DocEntry" />
+            </Principal>
+            <Dependent Role="t_PurchaseRequestDetail">
+              <PropertyRef Name="DocEntry" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SALESFORCESEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="t_Company" EntityType="Self.t_Company" />
+          <EntitySet Name="t_Connection" EntityType="Self.t_Connection" />
+          <EntitySet Name="t_Customer" EntityType="Self.t_Customer" />
+          <EntitySet Name="t_CustomerAddress" EntityType="Self.t_CustomerAddress" />
+          <EntitySet Name="t_Item" EntityType="Self.t_Item" />
+          <EntitySet Name="t_ItemPrice" EntityType="Self.t_ItemPrice" />
+          <EntitySet Name="t_Orders" EntityType="Self.t_Orders" />
+          <EntitySet Name="t_OrdersDetail" EntityType="Self.t_OrdersDetail" />
+          <EntitySet Name="t_PurchaseRequest" EntityType="Self.t_PurchaseRequest" />
+          <EntitySet Name="t_PurchaseRequestDetail" EntityType="Self.t_PurchaseRequestDetail" />
+          <EntitySet Name="t_Seller" EntityType="Self.t_Seller" />
+          <AssociationSet Name="FK_Cliente_Empresa" Association="Self.FK_Cliente_Empresa">
+            <End Role="t_Company" EntitySet="t_Company" />
+            <End Role="t_Customer" EntitySet="t_Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Empresa_Connection" Association="Self.FK_Empresa_Connection">
+            <End Role="t_Connection" EntitySet="t_Connection" />
+            <End Role="t_Company" EntitySet="t_Company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orden_Empresa" Association="Self.FK_Orden_Empresa">
+            <End Role="t_Company" EntitySet="t_Company" />
+            <End Role="t_Orders" EntitySet="t_Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Producto_Empresa" Association="Self.FK_Producto_Empresa">
+            <End Role="t_Company" EntitySet="t_Company" />
+            <End Role="t_Item" EntitySet="t_Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vendedor_Empresa" Association="Self.FK_Vendedor_Empresa">
+            <End Role="t_Company" EntitySet="t_Company" />
+            <End Role="t_Seller" EntitySet="t_Seller" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClienteDireccion_Cliente" Association="Self.FK_ClienteDireccion_Cliente">
+            <End Role="t_Customer" EntitySet="t_Customer" />
+            <End Role="t_CustomerAddress" EntitySet="t_CustomerAddress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductoPrecio_Producto" Association="Self.FK_ProductoPrecio_Producto">
+            <End Role="t_Item" EntitySet="t_Item" />
+            <End Role="t_ItemPrice" EntitySet="t_ItemPrice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdenDetalle_Orden" Association="Self.FK_OrdenDetalle_Orden">
+            <End Role="t_Orders" EntitySet="t_Orders" />
+            <End Role="t_OrdersDetail" EntitySet="t_OrdersDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_t_PurchaseRequest_t_PurchaseRequest" Association="Self.FK_t_PurchaseRequest_t_PurchaseRequest">
+            <End Role="t_PurchaseRequest" EntitySet="t_PurchaseRequest" />
+            <End Role="t_PurchaseRequestDetail" EntitySet="t_PurchaseRequestDetail" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SALESFORCESModelStoreContainer" CdmEntityContainer="SALESFORCESEntities">
+          <EntitySetMapping Name="t_Company">
+            <EntityTypeMapping TypeName="SALESFORCESModel.t_Company">
+              <MappingFragment StoreEntitySet="t_Company">
+                <ScalarProperty Name="IdCompany" ColumnName="IdCompany" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="IdConnection" ColumnName="IdConnection" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_Connection">
+            <EntityTypeMapping TypeName="SALESFORCESModel.t_Connection">
+              <MappingFragment StoreEntitySet="t_Connection">
+                <ScalarProperty Name="IdConnection" ColumnName="IdConnection" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="ConnectionString" ColumnName="ConnectionString" />
+                <ScalarProperty Name="Proveedor" ColumnName="Proveedor" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_Customer">
+            <EntityTypeMapping TypeName="SALESFORCESModel.t_Customer">
+              <MappingFragment StoreEntitySet="t_Customer">
+                <ScalarProperty Name="CardCode" ColumnName="CardCode" />
+                <ScalarProperty Name="IdCompany" ColumnName="IdCompany" />
+                <ScalarProperty Name="CardCodeSAP" ColumnName="CardCodeSAP" />
+                <ScalarProperty Name="CardName" ColumnName="CardName" />
+                <ScalarProperty Name="CardType" ColumnName="CardType" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="Phone1" ColumnName="Phone1" />
+                <ScalarProperty Name="Phone2" ColumnName="Phone2" />
+                <ScalarProperty Name="CntctPrsn" ColumnName="CntctPrsn" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="CreditLine" ColumnName="CreditLine" />
+                <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+                <ScalarProperty Name="ListNum" ColumnName="ListNum" />
+                <ScalarProperty Name="Cellular" ColumnName="Cellular" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="County" ColumnName="County" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="E_Mail" ColumnName="E_Mail" />
+                <ScalarProperty Name="sysCreateDate" ColumnName="sysCreateDate" />
+                <ScalarProperty Name="sysUpdateDate" ColumnName="sysUpdateDate" />
+                <ScalarProperty Name="validFor" ColumnName="validFor" />
+                <ScalarProperty Name="DateUp" ColumnName="DateUp" />
+                <ScalarProperty Name="DateDown" ColumnName="DateDown" />
+                <ScalarProperty Name="sysIsDeleted" ColumnName="sysIsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_CustomerAddress">
+            <EntityTypeMapping TypeName="SALESFORCESModel.t_CustomerAddress">
+              <MappingFragment StoreEntitySet="t_CustomerAddress">
+                <ScalarProperty Name="CustomerAddress" ColumnName="CustomerAddress" />
+                <ScalarProperty Name="IdCompany" ColumnName="IdCompany" />
+                <ScalarProperty Name="CardCode" ColumnName="CardCode" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="Phone1" ColumnName="Phone1" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="County" ColumnName="County" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="E_Mail" ColumnName="E_Mail" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="validFor" ColumnName="validFor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_Item">
+            <EntityTypeMapping TypeName="SALESFORCESModel.t_Item">
+              <MappingFragment StoreEntitySet="t_Item">
+                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+                <ScalarProperty Name="IdCompany" ColumnName="IdCompany" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="OnHand" ColumnName="OnHand" />
+                <ScalarProperty Name="IsCommited" ColumnName="IsCommited" />
+                <ScalarProperty Name="OnOrder" ColumnName="OnOrder" />
+                <ScalarProperty Name="CardCode" ColumnName="CardCode" />
+                <ScalarProperty Name="SuppCatNum" ColumnName="SuppCatNum" />
+                <ScalarProperty Name="BuyUnitMsr" ColumnName="BuyUnitMsr" />
+                <ScalarProperty Name="NumInBuy" ColumnName="NumInBuy" />
+                <ScalarProperty Name="SalUnitMsr" ColumnName="SalUnitMsr" />
+                <ScalarProperty Name="NumInSale" ColumnName="NumInSale" />
+                <ScalarProperty Name="SHeight1" ColumnName="SHeight1" />
+                <ScalarProperty Name="SHght1Unit" ColumnName="SHght1Unit" />
+                <ScalarProperty Name="SHeight2" ColumnName="SHeight2" />
+                <ScalarProperty Name="SHght2Unit" ColumnName="SHght2Unit" />
+                <ScalarProperty Name="SWidth1" ColumnName="SWidth1" />
+                <ScalarProperty Name="SWdth1Unit" ColumnName="SWdth1Unit" />
+                <ScalarProperty Name="SWidth2" ColumnName="SWidth2" />
+                <ScalarProperty Name="SWdth2Unit" ColumnName="SWdth2Unit" />
+                <ScalarProperty Name="SLength1" ColumnName="SLength1" />
+                <ScalarProperty Name="SLen1Unit" ColumnName="SLen1Unit" />
+                <ScalarProperty Name="Slength2" ColumnName="Slength2" />
+                <ScalarProperty Name="SLen2Unit" ColumnName="SLen2Unit" />
+                <ScalarProperty Name="SVolume" ColumnName="SVolume" />
+                <ScalarProperty Name="SVolUnit" ColumnName="SVolUnit" />
+                <ScalarProperty Name="SWeight1" ColumnName="SWeight1" />
+                <ScalarProperty Name="SWght1Unit" ColumnName="SWght1Unit" />
+                <ScalarProperty Name="SWeight2" ColumnName="SWeight2" />
+                <ScalarProperty Name="SWght2Unit" ColumnName="SWght2Unit" />
+                <ScalarProperty Name="BHeight1" ColumnName="BHeight1" />
+                <ScalarProperty Name="BHght1Unit" ColumnName="BHght1Unit" />
+                <ScalarProperty Name="BHeight2" ColumnName="BHeight2" />
+                <ScalarProperty Name="BHght2Unit" ColumnName="BHght2Unit" />
+                <ScalarProperty Name="BWidth1" ColumnName="BWidth1" />
+                <ScalarProperty Name="BWdth1Unit" ColumnName="BWdth1Unit" />
+                <ScalarProperty Name="BWidth2" ColumnName="BWidth2" />
+                <ScalarProperty Name="BWdth2Unit" ColumnName="BWdth2Unit" />
+                <ScalarProperty Name="BLength1" ColumnName="BLength1" />
+                <ScalarProperty Name="BLen1Unit" ColumnName="BLen1Unit" />
+                <ScalarProperty Name="Blength2" ColumnName="Blength2" />
+                <ScalarProperty Name="BLen2Unit" ColumnName="BLen2Unit" />
+                <ScalarProperty Name="BVolume" ColumnName="BVolume" />
+                <ScalarProperty Name="BVolUnit" ColumnName="BVolUnit" />
+                <ScalarProperty Name="BWeight1" ColumnName="BWeight1" />
+                <ScalarProperty Name="BWght1Unit" ColumnName="BWght1Unit" />
+                <ScalarProperty Name="BWeight2" ColumnName="BWeight2" />
+                <ScalarProperty Name="BWght2Unit" ColumnName="BWght2Unit" />
+                <ScalarProperty Name="FirmCode" ColumnName="FirmCode" />
+                <ScalarProperty Name="DateDown" ColumnName="DateDown" />
+                <ScalarProperty Name="DateUp" ColumnName="DateUp" />
+                <ScalarProperty Name="sysCreateDate" ColumnName="sysCreateDate" />
+                <ScalarProperty Name="sysUpdateDate" ColumnName="sysUpdateDate" />
+                <ScalarProperty Name="sysIsDeleted" ColumnName="sysIsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_ItemPrice">
+            <EntityTypeMapping TypeName="SALESFORCESModel.t_ItemPrice">
+              <MappingFragment StoreEntitySet="t_ItemPrice">
+                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+                <ScalarProperty Name="IdCompany" ColumnName="IdCompany" />
+                <ScalarProperty Name="PriceList" ColumnName="PriceList" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="DateUp" ColumnName="DateUp" />
+                <ScalarProperty Name="DateDown" ColumnName="DateDown" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_Orders">
+            <EntityTypeMapping TypeName="SALESFORCESModel.t_Orders">
+              <MappingFragment StoreEntitySet="t_Orders">
+                <ScalarProperty Name="DocEntry" ColumnName="DocEntry" />
+                <ScalarProperty Name="IdCompany" ColumnName="IdCompany" />
+                <ScalarProperty Name="DocNum" ColumnName="DocNum" />
+                <ScalarProperty Name="DocDate" ColumnName="DocDate" />
+                <ScalarProperty Name="CardCode" ColumnName="CardCode" />
+                <ScalarProperty Name="NumAtCard" ColumnName="NumAtCard" />
+                <ScalarProperty Name="VatSum" ColumnName="VatSum" />
+                <ScalarProperty Name="DiscSum" ColumnName="DiscSum" />
+                <ScalarProperty Name="DocTotal" ColumnName="DocTotal" />
+                <ScalarProperty Name="Ref1" ColumnName="Ref1" />
+                <ScalarProperty Name="Ref2" ColumnName="Ref2" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="SlpCode" ColumnName="SlpCode" />
+                <ScalarProperty Name="CntctCode" ColumnName="CntctCode" />
+                <ScalarProperty Name="DateUp" ColumnName="DateUp" />
+                <ScalarProperty Name="DateDown" ColumnName="DateDown" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_OrdersDetail">
+            <EntityTypeMapping TypeName="SALESFORCESModel.t_OrdersDetail">
+              <MappingFragment StoreEntitySet="t_OrdersDetail">
+                <ScalarProperty Name="DocEntry" ColumnName="DocEntry" />
+                <ScalarProperty Name="LineNum" ColumnName="LineNum" />
+                <ScalarProperty Name="IdCompany" ColumnName="IdCompany" />
+                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+                <ScalarProperty Name="Dscription" ColumnName="Dscription" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ShipDate" ColumnName="ShipDate" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="DiscPrcnt" ColumnName="DiscPrcnt" />
+                <ScalarProperty Name="LineTotal" ColumnName="LineTotal" />
+                <ScalarProperty Name="WhsCode" ColumnName="WhsCode" />
+                <ScalarProperty Name="VatSum" ColumnName="VatSum" />
+                <ScalarProperty Name="TaxCode" ColumnName="TaxCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_PurchaseRequest">
+            <EntityTypeMapping TypeName="SALESFORCESModel.t_PurchaseRequest">
+              <MappingFragment StoreEntitySet="t_PurchaseRequest">
+                <ScalarProperty Name="DocEntry" ColumnName="DocEntry" />
+                <ScalarProperty Name="DocNum" ColumnName="DocNum" />
+                <ScalarProperty Name="Branch" ColumnName="Branch" />
+                <ScalarProperty Name="DocDate" ColumnName="DocDate" />
+                <ScalarProperty Name="DocDueDate" ColumnName="DocDueDate" />
+                <ScalarProperty Name="CardCode" ColumnName="CardCode" />
+                <ScalarProperty Name="CardName" ColumnName="CardName" />
+                <ScalarProperty Name="NumAtCard" ColumnName="NumAtCard" />
+                <ScalarProperty Name="VatSum" ColumnName="VatSum" />
+                <ScalarProperty Name="DocTotal" ColumnName="DocTotal" />
+                <ScalarProperty Name="DiscSum" ColumnName="DiscSum" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="SlpCode" ColumnName="SlpCode" />
+                <ScalarProperty Name="Requester" ColumnName="Requester" />
+                <ScalarProperty Name="ReqName" ColumnName="ReqName" />
+                <ScalarProperty Name="DocStatus" ColumnName="DocStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_PurchaseRequestDetail">
+            <EntityTypeMapping TypeName="SALESFORCESModel.t_PurchaseRequestDetail">
+              <MappingFragment StoreEntitySet="t_PurchaseRequestDetail">
+                <ScalarProperty Name="DocEntry" ColumnName="DocEntry" />
+                <ScalarProperty Name="LineNum" ColumnName="LineNum" />
+                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+                <ScalarProperty Name="Dscription" ColumnName="Dscription" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ShipDate" ColumnName="ShipDate" />
+                <ScalarProperty Name="ReqDate" ColumnName="ReqDate" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="PriceAfVAT" ColumnName="PriceAfVAT" />
+                <ScalarProperty Name="PriceBefDi" ColumnName="PriceBefDi" />
+                <ScalarProperty Name="WhsCode" ColumnName="WhsCode" />
+                <ScalarProperty Name="OpenQty" ColumnName="OpenQty" />
+                <ScalarProperty Name="VatSum" ColumnName="VatSum" />
+                <ScalarProperty Name="DiscPrcnt" ColumnName="DiscPrcnt" />
+                <ScalarProperty Name="LineTotal" ColumnName="LineTotal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_Seller">
+            <EntityTypeMapping TypeName="SALESFORCESModel.t_Seller">
+              <MappingFragment StoreEntitySet="t_Seller">
+                <ScalarProperty Name="SlpCode" ColumnName="SlpCode" />
+                <ScalarProperty Name="IdCompany" ColumnName="IdCompany" />
+                <ScalarProperty Name="SlpName" ColumnName="SlpName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="DateUp" ColumnName="DateUp" />
+                <ScalarProperty Name="DateDown" ColumnName="DateDown" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

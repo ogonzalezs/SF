@@ -1,0 +1,6 @@
+﻿SELECT T0."WhsCode",
+(T0."OnHand" - T0."IsCommited") AS "OnHand",
+T0."IsCommited",
+T0."OnOrder"
+FROM "OITW" T0
+WHERE T0."ItemCode"='{0}'

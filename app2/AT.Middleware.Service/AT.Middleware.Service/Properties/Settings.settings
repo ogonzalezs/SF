@@ -1,0 +1,21 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="AT.Middleware.Service.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="LicenseServer" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">hanab6:40000</Value>
+    </Setting>
+    <Setting Name="Server" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">hanab6:30015</Value>
+    </Setting>
+    <Setting Name="CompanyDB" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">DARTEL_STGO_ECO</Value>
+    </Setting>
+    <Setting Name="DbUserName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SYSTEM</Value>
+    </Setting>
+    <Setting Name="DbPassword" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SAPB1Admin</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

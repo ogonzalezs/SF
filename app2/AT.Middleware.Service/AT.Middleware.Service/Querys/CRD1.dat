@@ -1,0 +1,9 @@
+﻿SELECT T0."Address",T0."Street",
+T0."Block",
+T0."ZipCode",
+T0."City",
+T0."County",
+T0."Country",
+T0."State"
+FROM "CRD1" T0
+WHERE T0."CardCode"='{0}'

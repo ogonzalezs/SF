@@ -1,0 +1,11 @@
+﻿SELECT T0."CardCode",
+T0."CardName",
+T0."Phone1",
+T0."Phone2",
+T0."E_Mail",
+T0."LicTradNum",
+T0."U_Giro"
+FROM "OCRD" T0
+WHERE T0."CardType"='C'
+AND T0."validFor"='Y'
+AND T0."frozenFor"='N'

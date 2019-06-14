@@ -1,0 +1,8 @@
+﻿SELECT T0."Code",
+T0."U_Status",
+T0."U_FechaCrea",
+T0."U_HoraUpd",
+T0."U_FechaUpd",
+T0."U_HoraUpd",
+FROM "@ORDRES" T0
+WHERE T0."Code"={0}

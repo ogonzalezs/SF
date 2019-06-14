@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ec28bf09f98d40e59bbb92c8efefc07f" Name="Diagram1" ZoomLevel="70">
+        <EntityTypeShape EntityType="SALESFORCESModel.t_Company" Width="1.5" PointX="3" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SALESFORCESModel.t_Connection" Width="1.5" PointX="0.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SALESFORCESModel.t_Customer" Width="1.5" PointX="5.25" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SALESFORCESModel.t_CustomerAddress" Width="1.5" PointX="7.5" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SALESFORCESModel.t_Item" Width="1.5" PointX="5.25" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SALESFORCESModel.t_ItemPrice" Width="1.5" PointX="7.5" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SALESFORCESModel.t_Orders" Width="1.5" PointX="5.25" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SALESFORCESModel.t_OrdersDetail" Width="1.5" PointX="7.5" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SALESFORCESModel.t_PurchaseRequest" Width="1.5" PointX="9.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="SALESFORCESModel.t_PurchaseRequestDetail" Width="1.5" PointX="12" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SALESFORCESModel.t_Seller" Width="1.5" PointX="5.25" PointY="27.125" IsExpanded="true" />
+        <AssociationConnector Association="SALESFORCESModel.FK_Cliente_Empresa" ManuallyRouted="false" />
+        <AssociationConnector Association="SALESFORCESModel.FK_Empresa_Connection" ManuallyRouted="false" />
+        <AssociationConnector Association="SALESFORCESModel.FK_Orden_Empresa" ManuallyRouted="false" />
+        <AssociationConnector Association="SALESFORCESModel.FK_Producto_Empresa" ManuallyRouted="false" />
+        <AssociationConnector Association="SALESFORCESModel.FK_Vendedor_Empresa" ManuallyRouted="false" />
+        <AssociationConnector Association="SALESFORCESModel.FK_ClienteDireccion_Cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="SALESFORCESModel.FK_ProductoPrecio_Producto" ManuallyRouted="false" />
+        <AssociationConnector Association="SALESFORCESModel.FK_OrdenDetalle_Orden" ManuallyRouted="false" />
+        <AssociationConnector Association="SALESFORCESModel.FK_t_PurchaseRequest_t_PurchaseRequest" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
